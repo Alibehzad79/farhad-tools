@@ -17,7 +17,7 @@
           </NuxtLink>
           <UButton
             :icon="colorMode.value === 'dark' ? 'fluent:weather-sunny-16-regular' : 'fluent:weather-moon-16-regular'"
-            variant="text" @click="changeColorMode" />
+            variant="ghost" @click="changeColorMode" />
         </div>
       </div>
       <div class="lg:hidden mt-5 flex justify-between">
@@ -28,7 +28,7 @@
           <UButton icon="fluent:line-horizontal-3-16-regular" @click="isOpen = !isOpen" />
           <UButton
             :icon="colorMode.value === 'dark' ? 'fluent:weather-sunny-16-regular' : 'fluent:weather-moon-16-regular'"
-            variant="text" @click="changeColorMode" />
+            variant="ghost" @click="changeColorMode" />
         </div>
         <USlideover v-model="isOpen" dir="rtl" title="منو">
           <div class="p-4 flex-1">
