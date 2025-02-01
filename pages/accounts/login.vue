@@ -63,12 +63,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   if (resulte === "success") {
     authStore.isAuthenticated = true
     toast.add({
-      title: "ورود موفق", description: "درحال تغییر صفحه...", color: "green", id: 'success_login', icon: "fluent:checkmark-circle-16-regular"
+      title: "ورود موفق", description: "درحال تغییر صفحه...", color: "green", id: 'success_login', icon: "fluent:checkmark-circle-16-regular", timeout: 3000, callback: () => { navigateTo('/') }
     })
   }
   if (resulte === "error") {
     toast.add({
-      title: "ورود ناموفق", description: "ایمیل یا رمز عبور اشتباه است.", color: "red", id: 'faild_login', icon: "fluent:error-circle-16-regular"
+      title: "ورود ناموفق", description: "ایمیل یا رمز عبور اشتباه است.", color: "red", id: 'faild_login', icon: "fluent:error-circle-16-regular", timeout: 3000,
     })
   }
   btnLoading.value = false

@@ -12,7 +12,7 @@
           <NuxtLink to="/accounts/login">
             <UButton label="ورود" size="xl" icon="fluent:key-16-regular" />
           </NuxtLink>
-          <NuxtLink to="/accounts/login">
+          <NuxtLink to="/accounts/register">
             <UButton label="ثبت نام" variant="soft" size="xl" icon="fluent:person-add-16-regular" />
           </NuxtLink>
           <UButton
@@ -51,7 +51,7 @@
                   <NuxtLink to="/accounts/login">
                     <UButton label="ورود" size="xl" icon="fluent:key-16-regular" />
                   </NuxtLink>
-                  <NuxtLink to="/accounts/login">
+                  <NuxtLink to="/accounts/reigster">
                     <UButton label="ثبت نام" variant="soft" size="xl" icon="fluent:person-add-16-regular" />
                   </NuxtLink>
                 </div>
