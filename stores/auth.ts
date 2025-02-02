@@ -61,6 +61,32 @@ export const useAuthStore = defineStore('auth', {
                     return "خطای ناشناخنه، لطفا دوباره امتحان کنید."
                 }
             }
-        }
+        },
+        async getChangePassowrd(body: object) {
+            const { data, status, error } = await useFetch('/api/accounts/change-password', {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+            if (status.value === "success") {
+                return status.value
+            }
+            if (error) {
+                if (error.value?.data['token']) {
+                    return String(error.value?.data['token'])
+                } else {
+                    return "خطای ناشناخنه، لطفا دوباره امتحان کنید."
+                }
+            }
+        },
+        async getLogout() {
+            const token = useCookie('token')
+            const refresh = useCookie('refresh')
+            this.isAuthenticated = false
+            token.value = ""
+            refresh.value = ""
+        },
     }
 })

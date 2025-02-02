@@ -1,6 +1,10 @@
 <template>
   <div>
-    index
+    <UContainer>
+      <div class="mt-10 flex flex-col gap-10">
+        <div>صفحه خانه</div>
+      </div>
+    </UContainer>
   </div>
 </template>
 
