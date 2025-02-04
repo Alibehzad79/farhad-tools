@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sticky top-0 bg-white dark:bg-[#1c1b22] py-2 z-50">
     <UContainer>
       <div class="mt-5 hidden lg:flex flex-row items-center justify-between">
         <div>
