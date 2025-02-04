@@ -44,7 +44,6 @@ const links = [{
 const productStore = useProductStore()
 await productStore.getAllProductList()
 const { products } = productStore
-console.log(products)
 
 </script>
 

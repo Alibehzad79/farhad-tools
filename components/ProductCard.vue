@@ -18,15 +18,18 @@
                 </div>
 
                 <template #footer>
-                    <div class="flex justify-between items-start w-full">
-                        <div>
-                            <UChip text="10" color="red" size="xl" position="top-left" class="w-full">
-                                <UButton :label="toCurrencyString(data?.price) + ' تومان'" class="w-full justify-center"
-                                    size="lg" variant="soft" />
+                    <div class="flex justify-between items-center w-full">
+                        <div v-if="data?.discount > 0">
+                            <UChip :text="data?.discount + '%'" color="red" size="xl" position="top-left"
+                                class="w-full">
+                                <UButton :label="toCurrencyString(data?.discount_price) + ' تومان'"
+                                    class="w-full justify-center" size="lg" variant="soft" />
                             </UChip>
                             <span class="text-gray-500 text-sm line-through">{{ toCurrencyString(data?.price) }}
                                 تومان</span>
                         </div>
+                        <UButton v-if="data?.discount <= 0" :label="toCurrencyString(data?.price) + ' تومان'"
+                            class="justify-center" size="lg" variant="soft" />
                         <div class="flex gap-1 items-center">
                             <UButton icon="fluent:heart-16-regular" />
                             <UButton icon="fluent:cart-16-regular" variant="outline" />
