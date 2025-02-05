@@ -68,7 +68,6 @@ const links = [{
 
 
 const productStore = useProductStore()
-await productStore.getAllProductList()
 await productStore.getCategoriesTags()
 const products = ref()
 products.value = await productStore.getAllProductList()

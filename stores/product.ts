@@ -2,8 +2,8 @@ import { defineStore } from "pinia"
 
 export const useProductStore = defineStore('productStore', {
     state: () => ({
-        products: null,
         categories_tags: null,
+        product: null,
     }),
     actions: {
         async getAllProductList() {
@@ -42,5 +42,19 @@ export const useProductStore = defineStore('productStore', {
                 return String("خطا در اتصال.")
             }
         },
+        async getProduct(slug: any) {
+            const { data, status } = await useFetch('/api/products/detail', {
+                method: "get",
+                query: {
+                    "slug": slug,
+                },
+            })
+            if (data.value && status.value === "success") {
+                this.product = data.value
+            }
+            if (status.value === "error") {
+                return String("خطا در اتصال")
+            }
+        }
     }
 })

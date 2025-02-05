@@ -47,9 +47,7 @@ const props = defineProps({
     data: Object
 })
 
-const toCurrencyString = (number: any) => {
-    return number.toLocaleString('fa-IR', { currency: 'IRT' })
-}
+import { toCurrencyString } from "~/composables/toCurrency"
 
 </script>
 
