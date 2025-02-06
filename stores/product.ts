@@ -17,6 +17,9 @@ export const useProductStore = defineStore('productStore', {
                 return String("خطا در اتصال.")
             }
         },
+        async getRefreshAllProducts() {
+            await this.getAllProductList()
+        },
         async getCategoriesTags() {
             const { data, status } = await useFetch('/api/products/categories_tags', {
                 method: "get"
@@ -52,6 +55,9 @@ export const useProductStore = defineStore('productStore', {
             if (status.value === "error") {
                 this.product = null
             }
-        }
+        },
+        async getRefreshProduct(slug: any) {
+            await this.getProduct(slug)
+        },
     }
 })

@@ -3,7 +3,7 @@
         <UContainer>
             <div class="mt-10 flex flex-col gap-10">
                 <UBreadcrumb :links="links" />
-                <div class="flex gap-10">
+                <div class="flex flex-col lg:flex-row gap-10">
                     <div class="border dark:border-gray-600 w-1/4 p-3 rounded flex-col gap-5 lg:flex hidden h-screen"
                         v-if="categories_tags">
                         <div class="flex flex-col gap-3">
@@ -26,6 +26,42 @@
                             </div>
                         </div>
                     </div>
+                    <div class="lg:hidden w-full">
+                        <UPopover class="z-40 w-full" mode="hover">
+                            <UButton color="white" label="فیلتر" trailing-icon="fluent:arrow-down-16-regular"
+                                icon="fluent:filter-16-regular" />
+
+                            <template #panel>
+                                <div class="p-4 w-full">
+                                    <div class="flex flex-col gap-5" v-if="categories_tags">
+                                        <div class="flex flex-col gap-3">
+                                            <span class="text-lg">دسته بندی ها</span>
+                                            <div class="flex flex-col gap-5">
+                                                <UButton label="همه محصولات" @click="getSearch(String(''))" size="xl"
+                                                    class="w-full" icon="fluent:pin-16-regular" />
+                                                <UButton @click="getSearch(String(category?.slug))"
+                                                    v-for="category in categories_tags['categories']"
+                                                    :key="category?.id" :label="category?.name" size="xl" class="w-full"
+                                                    icon="fluent:pin-16-regular" />
+                                            </div>
+                                        </div>
+                                        <UDivider />
+                                        <div class="flex flex-col gap-5">
+                                            <span class="text-lg">برچسب ها</span>
+                                            <div class="flex flex-col gap-3">
+                                                <UButton v-for="tag in categories_tags['tags']" :key="tag?.id"
+                                                    @click="getSearch(String(tag?.slug))" :label="tag?.name" size="xl"
+                                                    icon="fluent:tag-16-regular" variant="outline" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-else class="w-full">
+                                        خالی
+                                    </div>
+                                </div>
+                            </template>
+                        </UPopover>
+                    </div>
 
                     <div class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-5" v-if="Array.isArray(products)">
                         <div v-if="loading" class="flex justify-center">
@@ -34,7 +70,9 @@
                         <ProductCard v-for="product in products" :data="product" v-if="!loading" />
                     </div>
                     <div class="w-full lg:w-3/4" v-if="!Array.isArray(products)">
-                        <UAlert description="محصولی یافت نشد." color="red" />
+                        <UAlert title="محصولی یافت نشد." description="404 Not Found" color="red"
+                            icon="fluent:error-circle-16-regular"
+                            :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', size: 'xl', click: () => getRefreshAllProduct(), loading: refreshLoading }]" />
                     </div>
                 </div>
             </div>
@@ -71,6 +109,14 @@ const products = ref()
 products.value = await productStore.getAllProductList()
 
 const { categories_tags } = productStore
+
+const refreshLoading = ref(false)
+const getRefreshAllProduct = async () => {
+    refreshLoading.value = true
+    await productStore.getRefreshAllProducts()
+    products.value = await productStore.getAllProductList()
+    refreshLoading.value = false
+}
 
 const loading = ref(false)
 async function getSearch(query: String) {
