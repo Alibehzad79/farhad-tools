@@ -25,7 +25,7 @@ export const useProductStore = defineStore('productStore', {
                 this.categories_tags = data.value
             }
             if (status.value === "error") {
-                return String("خطا در اتصال.")
+                this.categories_tags = null
             }
         },
         async getSearch(query: String) {
@@ -37,9 +37,6 @@ export const useProductStore = defineStore('productStore', {
             })
             if (data.value && status.value === "success") {
                 return data.value
-            }
-            if (status.value === "error") {
-                return String("خطا در اتصال.")
             }
         },
         async getProduct(slug: any) {
@@ -53,7 +50,7 @@ export const useProductStore = defineStore('productStore', {
                 this.product = data.value
             }
             if (status.value === "error") {
-                return String("خطا در اتصال")
+                this.product = null
             }
         }
     }

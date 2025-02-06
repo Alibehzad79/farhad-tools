@@ -43,8 +43,6 @@
 </template>
 
 <script lang="ts" setup>
-
-import { string } from 'zod';
 import { useProductStore } from '~/stores/product';
 
 

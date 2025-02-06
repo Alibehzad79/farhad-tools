@@ -21,6 +21,10 @@ export const useAuthStore = defineStore('auth', {
                 token.value = data.value.access
                 refresh.value = data.value.refresh
                 this.isAuthenticated = true
+            } else {
+                this.isAuthenticated = false
+                token.value = ''
+                refresh.value = ''
             }
             return status.value
         },
