@@ -4,21 +4,19 @@ export const useProductStore = defineStore('productStore', {
     state: () => ({
         categories_tags: null,
         product: null,
+        products: null,
     }),
     actions: {
         async getAllProductList() {
-            const { data, status } = await useFetch('/api/products/list', {
+            const { data, status, error } = await useFetch('/api/products/list', {
                 method: "get"
             })
             if (data.value && status.value === "success") {
-                return data.value
+                this.products = data.value
             }
-            if (status.value === "error") {
-                return String("خطا در اتصال.")
-            }
-        },
-        async getRefreshAllProducts() {
-            await this.getAllProductList()
+            // if (error) {
+            //     this.products = null
+            // }
         },
         async getCategoriesTags() {
             const { data, status } = await useFetch('/api/products/categories_tags', {
@@ -27,19 +25,22 @@ export const useProductStore = defineStore('productStore', {
             if (data.value && status.value === "success") {
                 this.categories_tags = data.value
             }
-            if (status.value === "error") {
-                this.categories_tags = null
-            }
+            // if (status.value === "error") {
+            //     this.categories_tags = null
+            // }
         },
-        async getSearch(query: String) {
+        async getSearch(query: string) {
             const { data, status } = await useFetch('/api/products/search', {
                 method: "get",
                 query: {
                     "query": query
-                }
+                },
             })
             if (data.value && status.value === "success") {
-                return data.value
+                this.products = data.value
+            }
+            if (status.value === "error") {
+                this.products = null
             }
         },
         async getProduct(slug: any) {
@@ -52,12 +53,9 @@ export const useProductStore = defineStore('productStore', {
             if (data.value && status.value === "success") {
                 this.product = data.value
             }
-            if (status.value === "error") {
-                this.product = null
-            }
-        },
-        async getRefreshProduct(slug: any) {
-            await this.getProduct(slug)
+            // if (status.value === "error") {
+            //     this.product = null
+            // }
         },
     }
 })

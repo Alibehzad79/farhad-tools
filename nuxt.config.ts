@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css'],
-  modules: ['@nuxt/ui', '@pinia/nuxt'],
+  modules: ['@nuxt/ui', '@pinia/nuxt', '@vueuse/nuxt',],
   runtimeConfig: {
     apiKey: process.env.NUXT_API_KEY,
     api_v1: process.env.NUXT_BACKAEND_URL + "/api/v1",

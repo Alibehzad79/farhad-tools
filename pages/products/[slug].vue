@@ -2,7 +2,7 @@
     <div>
         <div class="mt-10">
             <UContainer>
-                <div v-if="product !== null">
+                <div v-if="product">
                     <UBreadcrumb :links="links" />
                     <div class="flex flex-col lg:flex-row gap-10 mt-10 p-2">
                         <div class="w-full lg:w-1/2">
@@ -133,20 +133,19 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 import { useProductStore } from "~/stores/product"
+import { storeToRefs } from 'pinia'
 import { toCurrencyString } from "~/composables/toCurrency"
 
 const route = useRoute()
 const productStore = useProductStore()
 await productStore.getProduct(String(route.params.slug))
-const product = ref()
-product.value = productStore.product
+const { product } = storeToRefs(productStore)
 
 
 const refreshLoading = ref(false)
 const getRefreshProduct = async () => {
     refreshLoading.value = true
-    await productStore.getRefreshProduct(String(route.params.slug))
-    product.value = productStore.product
+    await productStore.getProduct(String(route.params.slug))
     refreshLoading.value = false
 }
 

@@ -23,6 +23,8 @@
   "devDependencies": {
     "@iconify-json/fluent": "^1.2.12",
     "@iconify-json/svg-spinners": "^1.2.2",
+    "@vueuse/core": "^12.5.0",
+    "@vueuse/nuxt": "^12.5.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17"
