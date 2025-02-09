@@ -19,10 +19,10 @@
               </NuxtLink>
             </div>
             <div class="flex gap-3" v-if="isAuthenticated">
-              <NuxtLink :to="{ name: 'profile' }">
-                <UButton label="حساب کاربری" variant="soft" size="xl" icon="fluent:person-16-regular" />
-              </NuxtLink>
-              <UButton label="خروج" color="red" size="xl" icon="fluent:key-16-regular" @click="getLogout" />
+              <UDropdown :items="items" :popper="{ placement: 'bottom-start' }" dir="rtl">
+                <UButton size="xl" variant="soft" :label="`${user.first_name} ${user.last_name}`"
+                  trailing-icon="i-heroicons-chevron-down-20-solid" />
+              </UDropdown>
             </div>
           </div>
           <UButton
@@ -35,6 +35,9 @@
           <h1 class="text-3xl">فرهاد ابزار</h1>
         </div>
         <div class="flex items-center gap-3">
+          <UChip v-if="isAuthenticated" text="0" size="3xl">
+            <UButton icon="fluent:cart-16-regular" variant="soft" @click="navigateTo({ name: 'cart' })" />
+          </UChip>
           <UButton icon="fluent:line-horizontal-3-16-regular" @click="isOpen = !isOpen" />
           <UButton
             :icon="colorMode.value === 'dark' ? 'fluent:weather-sunny-16-regular' : 'fluent:weather-moon-16-regular'"
@@ -67,7 +70,8 @@
                 </div>
                 <div class="flex items-center justify-between" v-if="isAuthenticated">
                   <NuxtLink :to="{ name: 'profile' }" @click="isOpen = !isOpen">
-                    <UButton label="حساب کاربری" variant="soft" size="xl" icon="fluent:person-16-regular" />
+                    <UButton :label="`${user.first_name} ${user.last_name}`" variant="soft" size="xl"
+                      icon="fluent:person-16-regular" />
                   </NuxtLink>
                   <UButton label="خروج" color="red" size="xl" icon="fluent:key-16-regular" @click="getLogout" />
                 </div>
@@ -84,7 +88,7 @@
 import { useAuthStore } from '~/stores/auth'
 import { storeToRefs } from 'pinia'
 const authStore = useAuthStore()
-const { isAuthenticated } = storeToRefs(useAuthStore())
+const { isAuthenticated, user } = storeToRefs(useAuthStore())
 
 const links = [{
   label: 'خانه',
@@ -132,6 +136,29 @@ const getLogout = async () => {
   await authStore.getLogout()
   navigateTo({ name: "login" })
 }
+
+const items = [
+  [{
+    label: 'پروفایل',
+    icon: 'fluent:slide-text-person-16-regular',
+    to: { name: 'profile' }
+  },
+  {
+    label: 'سبد خرید',
+    icon: 'fluent:cart-16-regular',
+    to: { name: 'cart' }
+  }, {
+    label: 'سفارشات',
+    icon: 'fluent:box-16-regular',
+    to: { name: 'orders' },
+  }], [{
+    label: 'خروج',
+    icon: 'fluent:arrow-exit-20-regular',
+    click: () => { getLogout() },
+    iconClass: 'bg-red-500',
+    labelClass: 'text-red-500',
+  }]
+]
 
 </script>
 

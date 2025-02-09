@@ -11,8 +11,8 @@ export const useProductStore = defineStore('productStore', {
             const { data, status, error } = await useFetch<null>('/api/products/list', {
                 method: "get"
             })
-            if (data.value && status.value === "success") {
-                this.products = data.value
+            if (data?.value && status.value === "success") {
+                this.products = data?.value
             } else {
                 this.products = null
             }
@@ -21,8 +21,8 @@ export const useProductStore = defineStore('productStore', {
             const { data, status } = await useFetch<null>('/api/products/categories_tags', {
                 method: "get"
             })
-            if (data.value && status.value === "success") {
-                this.categories_tags = data.value
+            if (data?.value && status.value === "success") {
+                this.categories_tags = data?.value
             } else {
                 this.categories_tags = null
             }
@@ -34,8 +34,8 @@ export const useProductStore = defineStore('productStore', {
                     "query": query
                 },
             })
-            if (data.value && status.value === "success") {
-                this.products = data.value
+            if (data?.value && status.value === "success") {
+                this.products = data?.value
             } else {
                 this.products = null
             }
@@ -45,8 +45,8 @@ export const useProductStore = defineStore('productStore', {
                 method: "get",
                 params: { slug }
             })
-            if (data.value && status.value === "success") {
-                this.product = data.value
+            if (data?.value && status.value === "success") {
+                this.product = data?.value
             } else {
                 this.product = null
             }

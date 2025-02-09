@@ -4,7 +4,7 @@ export const useAuthStore = defineStore('auth', {
     state: () => ({
         isAuthenticated: false,
         tokenVerified: false,
-        user: {},
+        user: null,
     }),
     actions: {
         async getLogin(body: Object) {
@@ -18,9 +18,10 @@ export const useAuthStore = defineStore('auth', {
                 body: JSON.stringify(body)
             })
             if (data.value && status.value === "success") {
-                token.value = data.value.access
-                refresh.value = data.value.refresh
+                token.value = data?.value?.access
+                refresh.value = data?.value?.refresh
                 this.isAuthenticated = true
+                await this.getUserDetail()
             } else {
                 this.isAuthenticated = false
                 token.value = ''
@@ -106,6 +107,17 @@ export const useAuthStore = defineStore('auth', {
                 token.value = ''
                 refresh.value = ''
 
+            }
+        },
+
+        async getUserDetail() {
+            const { data, status } = await useFetch<null>('/api/accounts/profile/detail', {
+                method: 'get',
+            })
+            if (data.value && status.value === "success") {
+                this.user = data?.value
+            } else {
+                this.user = null
             }
         }
     }
