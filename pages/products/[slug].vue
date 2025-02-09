@@ -87,11 +87,16 @@
                                 <UButton v-if="product?.discount <= 0"
                                     :label="toCurrencyString(product?.price) + ' تومان'" class="justify-center"
                                     size="lg" variant="soft" />
-                                <div class="flex gap-3">
-                                    <UButton label="اضافه به سبد خرید" size="xl" variant="outline"
-                                        class="w-4/5 justify-center" />
-                                    <UButton icon="fluent:heart-16-regular" size="xl" variant="soft"
-                                        class="w-1/5 justify-center" />
+                                <div class="flex flex-col gap-3">
+                                    <div class="flex gap-3">
+                                        <UButton label="اضافه به سبد خرید" size="xl" variant="outline"
+                                            class="w-4/5 justify-center" :disabled="!isAuthenticated" />
+                                        <UButton icon="fluent:heart-16-regular" size="xl" variant="soft"
+                                            class="w-1/5 justify-center" :disabled="!isAuthenticated" />
+                                    </div>
+                                    <span class="block text-red-500" v-if="!isAuthenticated">برای خرید <NuxtLink
+                                            :to="{ name: 'login' }" class="underline">
+                                            وارد</NuxtLink> شوید</span>
                                 </div>
                             </div>
                             <UButton disabled v-if="product?.status !== 'active'" label="ناموجود" color="rose"
@@ -133,14 +138,16 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 import { useProductStore } from "~/stores/product"
+import { useAuthStore } from "~/stores/auth"
 import { storeToRefs } from 'pinia'
 import { toCurrencyString } from "~/composables/toCurrency"
+
+const { isAuthenticated } = storeToRefs(useAuthStore())
 
 const route = useRoute()
 const productStore = useProductStore()
 await productStore.getProduct(String(route.params.slug))
 const { product } = storeToRefs(productStore)
-
 
 const refreshLoading = ref(false)
 const getRefreshProduct = async () => {

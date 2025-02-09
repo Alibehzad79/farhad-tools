@@ -8,29 +8,27 @@ export const useProductStore = defineStore('productStore', {
     }),
     actions: {
         async getAllProductList() {
-            const { data, status, error } = await useFetch('/api/products/list', {
+            const { data, status, error } = await useFetch<null>('/api/products/list', {
                 method: "get"
             })
             if (data.value && status.value === "success") {
                 this.products = data.value
+            } else {
+                this.products = null
             }
-            // if (error) {
-            //     this.products = null
-            // }
         },
         async getCategoriesTags() {
-            const { data, status } = await useFetch('/api/products/categories_tags', {
+            const { data, status } = await useFetch<null>('/api/products/categories_tags', {
                 method: "get"
             })
             if (data.value && status.value === "success") {
                 this.categories_tags = data.value
+            } else {
+                this.categories_tags = null
             }
-            // if (status.value === "error") {
-            //     this.categories_tags = null
-            // }
         },
         async getSearch(query: string) {
-            const { data, status } = await useFetch('/api/products/search', {
+            const { data, status } = await useFetch<null>('/api/products/search', {
                 method: "get",
                 query: {
                     "query": query
@@ -38,24 +36,20 @@ export const useProductStore = defineStore('productStore', {
             })
             if (data.value && status.value === "success") {
                 this.products = data.value
-            }
-            if (status.value === "error") {
+            } else {
                 this.products = null
             }
         },
-        async getProduct(slug: any) {
-            const { data, status } = await useFetch('/api/products/detail', {
+        async getProduct(slug: string) {
+            const { data, status } = await useFetch<null>('/api/products/detail', {
                 method: "get",
-                query: {
-                    "slug": slug,
-                },
+                params: { slug }
             })
             if (data.value && status.value === "success") {
                 this.product = data.value
+            } else {
+                this.product = null
             }
-            // if (status.value === "error") {
-            //     this.product = null
-            // }
         },
     }
 })

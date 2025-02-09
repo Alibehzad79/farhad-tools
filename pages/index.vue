@@ -9,6 +9,8 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+})
 useSeoMeta({
   title: "خانه"
 })

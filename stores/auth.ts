@@ -92,5 +92,21 @@ export const useAuthStore = defineStore('auth', {
             token.value = ""
             refresh.value = ""
         },
+        async getVerifyToken() {
+            const token = useCookie('token')
+            const refresh = useCookie('refresh')
+            const { data, status, error } = await useFetch('/api/accounts/verify-token', {
+                method: "post",
+            })
+            if (status.value === "success") {
+                this.tokenVerified = true
+            } else {
+                this.isAuthenticated = false
+                this.tokenVerified = false
+                token.value = ''
+                refresh.value = ''
+
+            }
+        }
     }
 })

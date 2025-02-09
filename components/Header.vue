@@ -10,16 +10,16 @@
         </div>
         <div class="flex items-center gap-3">
           <div class="flex gap-3">
-            <div class="flex gap-3" v-if="!authStore.isAuthenticated">
-              <NuxtLink to="/accounts/login">
+            <div class="flex gap-3" v-if="!isAuthenticated">
+              <NuxtLink :to="{ name: 'login' }">
                 <UButton label="ورود" size="xl" icon="fluent:key-16-regular" />
               </NuxtLink>
-              <NuxtLink to="/accounts/register">
+              <NuxtLink :to="{ name: 'register' }">
                 <UButton label="ثبت نام" variant="soft" size="xl" icon="fluent:person-add-16-regular" />
               </NuxtLink>
             </div>
-            <div class="flex gap-3" v-if="authStore.isAuthenticated">
-              <NuxtLink to="/accounts/profile">
+            <div class="flex gap-3" v-if="isAuthenticated">
+              <NuxtLink :to="{ name: 'profile' }">
                 <UButton label="حساب کاربری" variant="soft" size="xl" icon="fluent:person-16-regular" />
               </NuxtLink>
               <UButton label="خروج" color="red" size="xl" icon="fluent:key-16-regular" @click="getLogout" />
@@ -57,16 +57,16 @@
               </div>
 
               <template #footer>
-                <div class="flex items-center justify-between" v-if="!authStore.isAuthenticated">
-                  <NuxtLink to="/accounts/login" @click="isOpen = !isOpen">
+                <div class="flex items-center justify-between" v-if="!isAuthenticated">
+                  <NuxtLink :to="{ name: 'login' }" @click="isOpen = !isOpen">
                     <UButton label="ورود" size="xl" icon="fluent:key-16-regular" />
                   </NuxtLink>
-                  <NuxtLink to="/accounts/register" @click="isOpen = !isOpen">
+                  <NuxtLink :to="{ name: 'register' }" @click="isOpen = !isOpen">
                     <UButton label="ثبت نام" variant="soft" size="xl" icon="fluent:person-add-16-regular" />
                   </NuxtLink>
                 </div>
-                <div class="flex items-center justify-between" v-if="authStore.isAuthenticated">
-                  <NuxtLink to="/accounts/profile" @click="isOpen = !isOpen">
+                <div class="flex items-center justify-between" v-if="isAuthenticated">
+                  <NuxtLink :to="{ name: 'profile' }" @click="isOpen = !isOpen">
                     <UButton label="حساب کاربری" variant="soft" size="xl" icon="fluent:person-16-regular" />
                   </NuxtLink>
                   <UButton label="خروج" color="red" size="xl" icon="fluent:key-16-regular" @click="getLogout" />
@@ -82,6 +82,9 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from '~/stores/auth'
+import { storeToRefs } from 'pinia'
+const authStore = useAuthStore()
+const { isAuthenticated } = storeToRefs(useAuthStore())
 
 const links = [{
   label: 'خانه',
@@ -94,7 +97,7 @@ const links = [{
 }, {
   label: 'فروشگاه',
   icon: 'fluent:building-shop-16-regular',
-  to: '/products',
+  to: { name: 'products' },
   labelClass: "text-lg",
   click: () => {
     isOpen.value = false
@@ -102,7 +105,7 @@ const links = [{
 }, {
   label: 'درباره ما',
   icon: 'fluent:people-team-16-regular',
-  to: '/about',
+  to: { name: 'about' },
   labelClass: "text-lg",
   click: () => {
     isOpen.value = false
@@ -111,7 +114,7 @@ const links = [{
 {
   label: 'تماس با ما',
   icon: 'fluent:call-16-regular',
-  to: '/contact',
+  to: { name: 'contact' },
   labelClass: "text-lg",
   click: () => {
     isOpen.value = false
@@ -123,8 +126,6 @@ const colorMode = useColorMode()
 const changeColorMode = () => colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
 
 const isOpen = ref(false)
-
-const authStore = useAuthStore()
 
 const getLogout = async () => {
   isOpen.value = false

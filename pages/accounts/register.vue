@@ -5,10 +5,10 @@
                 <h1 class="text-xl lg:text-3xl font-bold">ثبت نام در سایت</h1>
                 <UForm :schema="schema" :state="state" class="space-y-4 w-full lg:w-1/2" @submit="onSubmit"
                     method="post">
-                    <UFormGroup label="نام" name="firstName" size="xl">
+                    <UFormGroup label="نام" name="first_name" size="xl">
                         <UInput v-model="state.first_name" placeholder="علی" required />
                     </UFormGroup>
-                    <UFormGroup label="نام خانوادگی" name="lastName" size="xl">
+                    <UFormGroup label="نام خانوادگی" name="last_name" size="xl">
                         <UInput v-model="state.last_name" placeholder="شریعتی" required />
                     </UFormGroup>
                     <UFormGroup label="ایمیل" name="email" size="xl">
@@ -45,7 +45,8 @@ import type { FormSubmitEvent } from '#ui/types'
 import { useAuthStore } from '~/stores/auth'
 
 definePageMeta({
-    name: "register"
+    name: "register",
+    middleware: 'auth'
 })
 useSeoMeta({
     title: "ثبت نام"
@@ -56,8 +57,8 @@ const showPassword = ref(false)
 
 const schema = z.object({
     email: z.string().email('ایمیل نامعتبر'),
-    first_name: z.string().min(3, 'حداقل 3 حرف باید باشد').max(20, 'حداکثر 20 حرف باید باشد').nonempty('فیلد الزامی.'),
-    last_name: z.string().min(3, 'حداقل 3 حرف باید باشد').max(20, 'حداکثر 20 حرف باید باشد').nonempty('فیلد الزامی.'),
+    first_name: z.string().min(3, 'حداقل 3 حرف باید باشد').max(20, 'حداکثر 20 حرف باید باشد'),
+    last_name: z.string().min(3, 'حداقل 3 حرف باید باشد').max(20, 'حداکثر 20 حرف باید باشد'),
     password: z.string().min(8, "حداقل 8 کاراکتر باید باشد.").nonempty('رمز عبور نمی تواند خالی باشد.'),
     confirmPassword: z.string().min(8, "حداقل 8 کاراکتر باید باشد.").nonempty('رمز عبور نمی تواند خالی باشد.'),
 })

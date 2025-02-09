@@ -30,7 +30,8 @@ import type { FormSubmitEvent } from '#ui/types'
 import { useAuthStore } from '~/stores/auth'
 
 definePageMeta({
-  name: "login"
+  name: "login",
+  middleware: 'auth'
 })
 useSeoMeta({
   title: "ورود"

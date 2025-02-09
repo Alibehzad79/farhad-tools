@@ -4,15 +4,17 @@
             <UCard class="w-full" :ui="{ divide: '' }">
                 <template #header>
                     <div class="w-full">
-                        <NuxtLink :to="'/products/' + data?.slug">
+                        <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }">
                             <img :src="data?.image" :alt="data?.title" :title="data?.title"
-                                class="w-full lg:h-[20rem] h-96 rounded">
+                                class="w-full lg:h-[20rem] h-96 rounded" loading="lazy">
                         </NuxtLink>
                     </div>
                 </template>
 
                 <div class="flex flex-col justify-between gap-3">
-                    <NuxtLink :to="'/products/' + data?.slug"><strong class="text-lg">{{ data?.title }}</strong>
+                    <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }"><strong class="text-lg">{{
+                            data?.title
+                            }}</strong>
                     </NuxtLink>
                     <p class="text-gray-500 line-clamp-3">{{ data?.short_description }}</p>
                 </div>
