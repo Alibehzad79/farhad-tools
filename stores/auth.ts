@@ -119,6 +119,16 @@ export const useAuthStore = defineStore('auth', {
             } else {
                 this.user = null
             }
-        }
+        },
+        async getEditUserDetail(body: Object) {
+            const { data, status } = await useFetch<null>('/api/accounts/profile/edit', {
+                method: 'post',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            })
+            return status.value
+        },
     }
 })

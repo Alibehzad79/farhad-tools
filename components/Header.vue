@@ -20,14 +20,28 @@
             </div>
             <div class="flex gap-3" v-if="isAuthenticated">
               <UDropdown :items="items" :popper="{ placement: 'bottom-start' }" dir="rtl">
-                <UButton size="xl" variant="soft" :label="`${user.first_name} ${user.last_name}`"
-                  trailing-icon="i-heroicons-chevron-down-20-solid" />
+                <UButton size="xl" variant="soft" :label="`${user?.first_name} ${user?.last_name}`"
+                  trailing-icon="i-heroicons-chevron-down-20-solid" v-if="user" />
+                <UButton size="xl" variant="soft" label="حساب کاربری" trailing-icon="i-heroicons-chevron-down-20-solid"
+                  v-else />
               </UDropdown>
             </div>
           </div>
           <UButton
             :icon="colorMode.value === 'dark' ? 'fluent:weather-sunny-16-regular' : 'fluent:weather-moon-16-regular'"
             variant="ghost" @click="changeColorMode" />
+          <UPopover mode="hover">
+            <UButton icon="fluent:color-16-regular" variant="ghost" />
+
+            <template #panel>
+              <div class="p-4 flex flex-col gap-3">
+                <div class="grid grid-cols-4 gap-2">
+                  <UButton variant="solid" icon="fluent:checkbox-indeterminate" :color="color"
+                    v-for="color in appConfig.ui.colors" class="justify-center p-3" @click="changeUiColor(color)" />
+                </div>
+              </div>
+            </template>
+          </UPopover>
         </div>
       </div>
       <div class="lg:hidden mt-5 flex justify-between">
@@ -42,6 +56,18 @@
           <UButton
             :icon="colorMode.value === 'dark' ? 'fluent:weather-sunny-16-regular' : 'fluent:weather-moon-16-regular'"
             variant="ghost" @click="changeColorMode" />
+          <UPopover mode="click">
+            <UButton icon="fluent:color-16-regular" variant="ghost" />
+
+            <template #panel>
+              <div class="p-4 flex flex-col gap-3">
+                <div class="grid grid-cols-4 gap-2">
+                  <UButton variant="solid" icon="fluent:checkbox-indeterminate" :color="color"
+                    v-for="color in appConfig.ui.colors" class="justify-center p-3" @click="changeUiColor(color)" />
+                </div>
+              </div>
+            </template>
+          </UPopover>
         </div>
         <USlideover v-model="isOpen" dir="rtl" title="منو">
           <div class="p-4 flex-1">
@@ -70,8 +96,7 @@
                 </div>
                 <div class="flex items-center justify-between" v-if="isAuthenticated">
                   <NuxtLink :to="{ name: 'profile' }" @click="isOpen = !isOpen">
-                    <UButton :label="`${user.first_name} ${user.last_name}`" variant="soft" size="xl"
-                      icon="fluent:person-16-regular" />
+                    <UButton :label="user?.full_name" variant="soft" size="xl" icon="fluent:person-16-regular" />
                   </NuxtLink>
                   <UButton label="خروج" color="red" size="xl" icon="fluent:key-16-regular" @click="getLogout" />
                 </div>
@@ -88,7 +113,13 @@
 import { useAuthStore } from '~/stores/auth'
 import { storeToRefs } from 'pinia'
 const authStore = useAuthStore()
+
 const { isAuthenticated, user } = storeToRefs(useAuthStore())
+
+const appConfig = useAppConfig();
+const changeUiColor = (color: string) => {
+  appConfig.ui.primary = color
+}
 
 const links = [{
   label: 'خانه',
