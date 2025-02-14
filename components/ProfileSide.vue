@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="hidden lg:flex h-screen bg-gray-100 dark:bg-gray-800 p-5 rounded w-full">
+        <div class="hidden lg:flex h-96 bg-gray-100 dark:bg-gray-800 p-5 rounded w-full">
             <UVerticalNavigation :links="links" />
         </div>
         <div class="lg:hidden">
             <UButton icon="fluent:line-style-20-regular" size="xl" @click="showMenu = !showMenu" />
-            <UVerticalNavigation :links="links" class="mt-3 bg-gray-800 rounded p-2" v-if="showMenu" />
+            <UVerticalNavigation :links="links" class="mt-3 bg-gray-100 dark:bg-gray-800 rounded p-2" v-if="showMenu" />
         </div>
     </div>
 </template>
@@ -28,7 +28,7 @@ const links = [{
 }, {
     label: 'سبد خرید',
     icon: 'fluent:cart-16-regular',
-    to: { name: 'cart' },
+    to: { name: 'carts' },
     labelClass: 'text-lg'
 }, {
     label: 'سفارشات',

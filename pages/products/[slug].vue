@@ -88,7 +88,29 @@
                                     :label="toCurrencyString(product?.price) + ' تومان'" class="justify-center"
                                     size="lg" variant="soft" />
                                 <div class="flex flex-col gap-3">
-                                    <div class="flex gap-3">
+                                    <div class="flex flex-col items-center gap-5" v-if="cart && isAuthenticated">
+                                        <div>
+                                            <div class="w-full sm:w-auto flex items-center gap-2">
+                                                <UButton variant="ghost" label="+" @click="increment"
+                                                    :disabled="quntityValue >= data?.product?.count" />
+                                                <UInput type="number" v-model="quntityValue" disabled size="lg"
+                                                    :min="minValue" :max="data?.product?.count"
+                                                    class="w-full sm:w-auto">
+                                                </UInput>
+                                                <UButton variant="ghost" label="-" @click="decrement"
+                                                    v-if="quntityValue > 1" />
+                                                <UButton variant="ghost" icon="fluent:delete-16-regular"
+                                                    v-if="quntityValue <= 1" color="red" @click="deleteCart" />
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span>در سبد شما</span>
+                                            <NuxtLink :to="{ name: 'carts' }">
+                                                <UButton label="مشاهده سبد خرید" variant="link" color="red" />
+                                            </NuxtLink>
+                                        </div>
+                                    </div>
+                                    <div v-else class="flex gap-3">
                                         <UButton label="اضافه به سبد خرید" size="xl" variant="outline"
                                             class="w-4/5 justify-center" :disabled="!isAuthenticated" />
                                         <UButton icon="fluent:heart-16-regular" size="xl" variant="soft"
@@ -135,9 +157,8 @@
 </template>
 
 <script lang="ts" setup>
-import { z } from 'zod'
-import type { FormSubmitEvent } from '#ui/types'
 import { useProductStore } from "~/stores/product"
+import { useCartStore } from "~/stores/carts"
 import { useAuthStore } from "~/stores/auth"
 import { storeToRefs } from 'pinia'
 import { toCurrencyString } from "~/composables/toCurrency"
@@ -148,6 +169,12 @@ const route = useRoute()
 const productStore = useProductStore()
 await productStore.getProduct(String(route.params.slug))
 const { product } = storeToRefs(productStore)
+const cartStore = useCartStore()
+await cartStore.getUserCarts()
+await cartStore.checkCartExists(product?.value?.slug)
+const { cart } = storeToRefs(cartStore)
+
+const quntityValue = ref(cart?.value?.quantity)
 
 const refreshLoading = ref(false)
 const getRefreshProduct = async () => {
@@ -183,26 +210,91 @@ const items = [{
     content: 'And, this is the content for Tab2'
 },]
 
-const schema = z.object({
-    email: z.string().email('ایمیل نامعتبر'),
-    comment: z.string(),
-    full_name: z.string(),
-})
+const isOpenGalleryModel = ref(false)
 
-type Schema = z.output<typeof schema>
+const router = useRouter()
+const toast = useToast()
+const editLoading = ref(false)
 
-const state = reactive({
-    email: undefined,
-    comment: undefined,
-    full_name: undefined,
-})
+const increment = async () => {
+    editLoading.value = true
+    quntityValue.value++
+    if (quntityValue.value > product?.value?.count) {
+        quntityValue.value = product?.value?.count
+    } else {
+        const data = ref({
+            'product_slug': product?.value?.slug,
+            'quantity': quntityValue.value
+        })
+        const reslute = await cartStore.getEditCart(data.value)
+        if (reslute === "error") {
+            toast.add({
+                title: "کارتی یافت نشد.",
+                color: "red",
+                timeout: 3000,
+                description: "در حال بروزرسانی صفحه...",
+                callback: () => {
+                    router.go(0)
+                }
+            })
+        }
+    }
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-    // Do something with data
-    console.log(event.data)
+    editLoading.value = false
 }
 
-const isOpenGalleryModel = ref(false)
+const decrement = async () => {
+    editLoading.value = true
+    quntityValue.value--
+    if (quntityValue.value < 0) {
+        quntityValue.value = 1
+    }
+    const data = ref({
+        'product_slug': product?.value?.slug,
+        'quantity': quntityValue.value
+    })
+    const reslute = await cartStore.getEditCart(data.value)
+    if (reslute === "error") {
+        toast.add({
+            title: "کارتی یافت نشد.",
+            color: "red",
+            timeout: 3000,
+            description: "در حال بروزرسانی صفحه...",
+            callback: () => {
+                router.go(0)
+            }
+        })
+    }
+    editLoading.value = false
+
+}
+
+const deleteCart = async () => {
+    const data = ref({
+        "cart_id": cart.value?.id
+    })
+    const reslute = await cartStore.getDeleteCart(data.value)
+    if (reslute === "success") {
+        toast.add({
+            title: "با موفقیت حذف شد.",
+            color: "green",
+            timeout: 3000,
+            callback: async () => {
+                await cartStore.getUserCarts()
+            }
+        })
+    } else {
+        toast.add({
+            title: "کارت یافت نشد.",
+            color: "red",
+            timeout: 3000,
+            callback: async () => {
+                await cartStore.getUserCarts()
+            }
+        })
+    }
+}
+
 
 useSeoMeta({
     title: product?.value?.title ? String(product?.value?.title) : 'محصول'

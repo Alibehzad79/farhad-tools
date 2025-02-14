@@ -114,7 +114,7 @@ import { useAuthStore } from '~/stores/auth'
 import { storeToRefs } from 'pinia'
 const authStore = useAuthStore()
 
-const { isAuthenticated, user } = storeToRefs(useAuthStore())
+const { isAuthenticated, user } = storeToRefs(authStore)
 
 const appConfig = useAppConfig();
 const changeUiColor = (color: string) => {
@@ -177,7 +177,7 @@ const items = [
   {
     label: 'سبد خرید',
     icon: 'fluent:cart-16-regular',
-    to: { name: 'cart' }
+    to: { name: 'carts' }
   }, {
     label: 'سفارشات',
     icon: 'fluent:box-16-regular',
