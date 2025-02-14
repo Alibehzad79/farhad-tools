@@ -111,8 +111,9 @@
                                         </div>
                                     </div>
                                     <div v-else class="flex gap-3">
-                                        <UButton label="اضافه به سبد خرید" size="xl" variant="outline"
-                                            class="w-4/5 justify-center" :disabled="!isAuthenticated" />
+                                        <UButton label="اضافه به سبد خرید" @click="addToCart" size="xl"
+                                            variant="outline" class="w-4/5 justify-center"
+                                            :disabled="!isAuthenticated" />
                                         <UButton icon="fluent:heart-16-regular" size="xl" variant="soft"
                                             class="w-1/5 justify-center" :disabled="!isAuthenticated" />
                                     </div>
@@ -231,7 +232,7 @@ const increment = async () => {
             toast.add({
                 title: "کارتی یافت نشد.",
                 color: "red",
-                timeout: 3000,
+                timeout: 1000,
                 description: "در حال بروزرسانی صفحه...",
                 callback: () => {
                     router.go(0)
@@ -258,7 +259,7 @@ const decrement = async () => {
         toast.add({
             title: "کارتی یافت نشد.",
             color: "red",
-            timeout: 3000,
+            timeout: 1000,
             description: "در حال بروزرسانی صفحه...",
             callback: () => {
                 router.go(0)
@@ -275,26 +276,45 @@ const deleteCart = async () => {
     })
     const reslute = await cartStore.getDeleteCart(data.value)
     if (reslute === "success") {
+        await cartStore.getUserCarts()
         toast.add({
             title: "با موفقیت حذف شد.",
             color: "green",
-            timeout: 3000,
-            callback: async () => {
-                await cartStore.getUserCarts()
-            }
+            timeout: 1000,
         })
     } else {
         toast.add({
             title: "کارت یافت نشد.",
             color: "red",
-            timeout: 3000,
-            callback: async () => {
-                await cartStore.getUserCarts()
-            }
+            timeout: 1000,
         })
     }
 }
 
+const addToCart = async () => {
+    const data = {
+        "product_slug": product?.value?.slug,
+        "quantity": 1
+    }
+    const reslute = await cartStore.addToCart(data)
+    if (reslute === "success") {
+        cartStore.checkCartExists(product?.value?.slug)
+        toast.add({
+            title: "با موفقیت به سبد خرید اضافه شد.",
+            color: "green",
+            timeout: 1000,
+            callback: () => {
+                navigateTo({ name: "carts" })
+            }
+        })
+    } else {
+        toast.add({
+            title: "خطا در پردازش اطلاعات",
+            color: "red",
+            timeout: 1000,
+        })
+    }
+}
 
 useSeoMeta({
     title: product?.value?.title ? String(product?.value?.title) : 'محصول'

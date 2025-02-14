@@ -47,7 +47,16 @@ export const useCartStore = defineStore('carts', {
                 this.cart = null
             }
         },
-        // add to cart list.
+        async addToCart(body: object) {
+            const { data, status } = await useFetch('/api/carts/add', {
+                method: "post",
+                body: JSON.stringify(body)
+            })
+            if (data.value && status.value === "success") {
+                await this.checkCartExists(data?.value?.product_slug)
+            }
+            return status.value
+        }
 
     }
 })
