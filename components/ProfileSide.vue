@@ -20,28 +20,37 @@ const getLogout = async () => {
     navigateTo({ name: "login" })
 }
 
-const links = [{
-    label: 'پروفایل',
-    to: { name: 'profile' },
-    icon: 'fluent:slide-text-person-16-regular',
-    labelClass: 'text-lg',
-}, {
-    label: 'سبد خرید',
-    icon: 'fluent:cart-16-regular',
-    to: { name: 'carts' },
-    labelClass: 'text-lg'
-}, {
-    label: 'سفارشات',
-    icon: 'fluent:box-16-regular',
-    to: { name: 'orders' },
-    labelClass: 'text-lg'
-}, {
-    label: 'خروج',
-    icon: 'fluent:arrow-exit-20-regular',
-    click: () => { getLogout() },
-    labelClass: 'text-lg text-red-500',
-    iconClass: 'bg-red-500'
-}]
+const links = [[
+    {
+        label: 'پروفایل',
+        to: { name: 'profile' },
+        icon: 'fluent:slide-text-person-16-regular',
+        labelClass: 'text-lg',
+    }, {
+        label: 'سبد خرید',
+        icon: 'fluent:cart-16-regular',
+        to: { name: 'carts' },
+        labelClass: 'text-lg'
+    }, {
+        label: 'سفارشات',
+        icon: 'fluent:box-16-regular',
+        to: { name: 'orders' },
+        labelClass: 'text-lg'
+    }, {
+        label: 'علاقه مندی ها',
+        icon: 'fluent:person-heart-20-regular',
+        to: { name: 'wishlist' },
+        labelClass: 'text-lg',
+    }
+], [
+    {
+        label: 'خروج',
+        icon: 'fluent:arrow-exit-20-regular',
+        click: () => { getLogout() },
+        labelClass: 'text-lg text-red-500',
+        iconClass: 'bg-red-500'
+    }
+]]
 
 const showMenu = ref(false)
 </script>

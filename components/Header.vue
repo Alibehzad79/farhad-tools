@@ -182,7 +182,12 @@ const items = [
     label: 'سفارشات',
     icon: 'fluent:box-16-regular',
     to: { name: 'orders' },
-  }], [{
+  },
+  {
+    label: 'علاقه مندی ها',
+    icon: 'fluent:person-heart-20-regular',
+    to: { name: 'wishlist' },
+  },], [{
     label: 'خروج',
     icon: 'fluent:arrow-exit-20-regular',
     click: () => { getLogout() },
