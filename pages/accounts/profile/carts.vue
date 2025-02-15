@@ -20,7 +20,7 @@
                         <Icon name="fluent:arrow-sync-16-regular" size="20" class="animate-spin" />
                     </div>
                     <div v-if="carts?.carts.length < 1" class="w-full lg:w-3/4">
-                        <UAlert title="سبد خرید خالی است." variant="outline" color="red"
+                        <UAlert title="سبد خرید خالی است." variant="outline" color="primary"
                             icon="fluent:error-circle-16-regular">
                             <template #description>
                                 <div>

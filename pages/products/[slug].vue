@@ -149,7 +149,7 @@
                 </div>
                 <div v-else>
                     <UAlert :title="`محصول [ ${route.params.slug.replaceAll(' ', '-')} ] یافت نشد.`"
-                        description="404 Not Found" color="red" icon="fluent:error-circle-16-regular" ,
+                        description="404 Not Found" color="primary" variant="outline" icon="fluent:error-circle-16-regular" ,
                         :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', size: 'xl', click: () => getRefreshProduct(), loading: refreshLoading }]" />
                 </div>
             </UContainer>
@@ -173,9 +173,9 @@ const { product } = storeToRefs(productStore)
 const cartStore = useCartStore()
 await cartStore.getUserCarts()
 await cartStore.checkCartExists(product?.value?.slug)
-const { cart } = storeToRefs(cartStore)
+const { cart, carts } = storeToRefs(cartStore)
 
-const quntityValue = ref(cart?.value?.quantity)
+const quntityValue = ref(cart?.value?.quantity ?? 1)
 
 const refreshLoading = ref(false)
 const getRefreshProduct = async () => {
@@ -303,9 +303,6 @@ const addToCart = async () => {
             title: "با موفقیت به سبد خرید اضافه شد.",
             color: "green",
             timeout: 1000,
-            callback: () => {
-                navigateTo({ name: "carts" })
-            }
         })
     } else {
         toast.add({
@@ -317,7 +314,8 @@ const addToCart = async () => {
 }
 
 useSeoMeta({
-    title: product?.value?.title ? String(product?.value?.title) : 'محصول'
+    title: product?.value?.title ?? 'محصول',
+    description: product?.value?.short_description ?? 'توضیحات'
 })
 </script>
 

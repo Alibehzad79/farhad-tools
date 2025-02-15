@@ -53,7 +53,7 @@ export const useCartStore = defineStore('carts', {
                 body: JSON.stringify(body)
             })
             if (data.value && status.value === "success") {
-                await this.checkCartExists(data?.value?.product_slug)
+                await this.getUserCarts()
             }
             return status.value
         }
