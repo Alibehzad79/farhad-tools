@@ -101,7 +101,15 @@
                                                     v-if="quntityValue > 1" />
                                                 <UButton variant="ghost" icon="fluent:delete-16-regular"
                                                     v-if="quntityValue <= 1" color="red" @click="deleteCart" />
+                                                <UTooltip
+                                                    :text="!isAuthenticated ? 'برای افزودن به لیست علاقه مندی ها، وارد اکانت شوید.' : isInWishlist ? ' حذف از لیست علاقه مندی ها' : 'افزودن به لیست علاقه مندی ها'">
+                                                    <UButton
+                                                        :icon="isInWishlist ? 'fluent:heart-16-filled' : 'fluent:heart-16-regular'"
+                                                        size="xl" variant="soft" @click="toggleWishlist"
+                                                        :disabled="!isAuthenticated" />
+                                                </UTooltip>
                                             </div>
+
                                         </div>
                                         <div class="flex items-center">
                                             <span>در سبد شما</span>
@@ -114,8 +122,13 @@
                                         <UButton label="اضافه به سبد خرید" @click="addToCart" size="xl"
                                             variant="outline" class="w-4/5 justify-center"
                                             :disabled="!isAuthenticated" />
-                                        <UButton icon="fluent:heart-16-regular" size="xl" variant="soft"
-                                            class="w-1/5 justify-center" :disabled="!isAuthenticated" />
+                                        <UTooltip
+                                            :text="!isAuthenticated ? 'برای افزودن به لیست علاقه مندی ها، وارد اکانت شوید.' : isInWishlist ? ' حذف از لیست علاقه مندی ها' : 'افزودن به لیست علاقه مندی ها'">
+                                            <UButton
+                                                :icon="isInWishlist ? 'fluent:heart-16-filled' : 'fluent:heart-16-regular'"
+                                                size="xl" variant="soft" @click="toggleWishlist"
+                                                :disabled="!isAuthenticated" />
+                                        </UTooltip>
                                     </div>
                                     <span class="block text-red-500" v-if="!isAuthenticated">برای خرید <NuxtLink
                                             :to="{ name: 'login' }" class="underline">
@@ -149,7 +162,8 @@
                 </div>
                 <div v-else>
                     <UAlert :title="`محصول [ ${route.params.slug.replaceAll(' ', '-')} ] یافت نشد.`"
-                        description="404 Not Found" color="primary" variant="outline" icon="fluent:error-circle-16-regular" ,
+                        description="404 Not Found" color="primary" variant="outline"
+                        icon="fluent:error-circle-16-regular" ,
                         :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', size: 'xl', click: () => getRefreshProduct(), loading: refreshLoading }]" />
                 </div>
             </UContainer>
@@ -161,6 +175,7 @@
 import { useProductStore } from "~/stores/product"
 import { useCartStore } from "~/stores/carts"
 import { useAuthStore } from "~/stores/auth"
+import { useWishlistStore } from '~/stores/wishlist'
 import { storeToRefs } from 'pinia'
 import { toCurrencyString } from "~/composables/toCurrency"
 
@@ -174,6 +189,22 @@ const cartStore = useCartStore()
 await cartStore.getUserCarts()
 await cartStore.checkCartExists(product?.value?.slug)
 const { cart, carts } = storeToRefs(cartStore)
+
+const wishlistStore = useWishlistStore()
+const isInWishlist = ref(await wishlistStore.checkExistProduct(product?.value?.slug ?? false))
+
+const toggleWishlist = async () => {
+    const data = {
+        "product_slug": product?.value?.slug
+    }
+    const resulte = await wishlistStore.toggleWishlist(data)
+    if (resulte === "success") {
+        isInWishlist.value = true
+    } else {
+        isInWishlist.value = false
+    }
+}
+
 
 const quntityValue = ref(cart?.value?.quantity ?? 1)
 

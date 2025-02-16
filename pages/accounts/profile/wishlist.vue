@@ -6,10 +6,15 @@
                 <div class="flex flex-col lg:flex-row gap-5">
                     <ProfileSide class="w-full lg:w-1/4" />
                     <div class="w-full lg:w-3/4 h-screen p-5 rounded">
-                        <div class="w-full grid grid-cols-2 md:grid-cols4 gap-5" v-if="wishlist">
+                        <div class="w-full grid grid-cols-2 md:grid-cols4 gap-5"
+                            v-if="wishlistStore.wishlist?.length > 0">
                             <div v-for="wish in wishlist" :key="wish?.id">
                                 <ProductCard :data="wish?.product" />
                             </div>
+                        </div>
+                        <div v-if="wishlistStore.wishlist?.length < 1">
+                            <UAlert title="محصولی یافت نشد." description="لیست علاقه مندی های شما خالی است."
+                                color="primary" variant="soft" icon="fluent:error-circle-16-regular" />
                         </div>
                     </div>
                 </div>
@@ -19,6 +24,7 @@
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from "pinia"
 import { useWishlistStore } from '~/stores/wishlist'
 
 definePageMeta({
@@ -29,7 +35,7 @@ definePageMeta({
 const wishlistStore = useWishlistStore()
 await wishlistStore.getUserWishlist()
 
-const { wishlist } = wishlistStore
+const { wishlist } = storeToRefs(wishlistStore)
 useSeoMeta({
     title: 'علاقه مندی ها'
 })

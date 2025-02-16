@@ -5,11 +5,12 @@
                 <UBreadcrumb :links="links" />
                 <div class="flex flex-col lg:flex-row gap-5">
                     <ProfileSide class="w-full lg:w-1/4" />
-                    <div class="flex flex-col gap-5 justify-between w-full lg:w-3/4" v-if="carts?.carts.length > 0">
+                    <div class="flex flex-col gap-5 justify-between w-full lg:w-3/4"
+                        v-if="cartStore.carts?.carts.length > 0">
                         <div class="p-5 rounded flex flex-col gap-5">
                             <CartItem v-for="cart in carts?.carts" :key="cart" :data="cart" />
                         </div>
-                        <div v-if="carts?.amount">
+                        <div v-if="cartStore.carts?.amount">
                             <UAlert title="قیمت کل:" variant="soft" color="primary"
                                 :description="toCurrencyString(carts?.amount ?? 0) + ' تومان'"
                                 icon="fluent:money-16-regular" />
@@ -19,8 +20,8 @@
                     <div v-show="cartStore.loading" class="flex w-full lg:w-3/4">
                         <Icon name="fluent:arrow-sync-16-regular" size="20" class="animate-spin" />
                     </div>
-                    <div v-if="carts?.carts.length < 1" class="w-full lg:w-3/4">
-                        <UAlert title="سبد خرید خالی است." variant="outline" color="primary"
+                    <div v-if="cartStore.carts?.carts.length < 1" class="w-full lg:w-3/4">
+                        <UAlert title="سبد خرید خالی است." variant="soft" color="primary"
                             icon="fluent:error-circle-16-regular">
                             <template #description>
                                 <div>
