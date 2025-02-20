@@ -4,7 +4,7 @@ export const useCartStore = defineStore('carts', {
     state: () => ({
         carts: {},
         loading: false,
-        cart: null
+        cart: null,
     }),
     actions: {
         async getUserCarts() {

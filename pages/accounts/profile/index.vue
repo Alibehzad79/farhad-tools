@@ -41,10 +41,9 @@ import type { FormSubmitEvent } from '#ui/types'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '~/stores/auth'
 
-
 const authStore = useAuthStore()
-
-const { user } = storeToRefs(useAuthStore())
+await authStore.getUserDetail()
+const { user } = storeToRefs(authStore)
 
 
 const phoneNumberRegex = new RegExp("^[0-9]+$")

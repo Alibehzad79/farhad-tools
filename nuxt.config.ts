@@ -28,5 +28,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiKey: process.env.NUXT_API_KEY,
     api_v1: process.env.NUXT_BACKAEND_URL + "/api/v1",
+    public: {
+      backend_url: process.env.NUXT_BACKAEND_URL,
+    }
   }
 })
