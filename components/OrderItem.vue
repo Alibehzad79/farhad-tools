@@ -6,7 +6,7 @@
                 <div class="flex flex-col gap-2">
                     <span class="text-sm">محصولات</span>
                     <div class="flex items-center">
-                        <span class="line-clamp-1 text-blue-500" v-for="item in data?.orderitems">{{ item?.product_name
+                        <span class="line-clamp-1 text-blue-500" v-for="item in data?.orderitems">{{ item?.product?.title
                             }}</span>
                     </div>
                 </div>

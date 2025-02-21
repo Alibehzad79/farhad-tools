@@ -47,8 +47,15 @@
                     <h6 class="text-xl font-bold">محصولات سفارش داده شده</h6>
                     <div v-for="item in order?.orderitems"
                         class="border border-gray-100 dark:border-gray-800 p-5 rounded-xl">
-                        <div class="flex flex-col gap-3 lg:flex-row justify-between">
-                            <span>{{ item?.product_name }}</span>
+                        <div class="flex flex-col gap-3 lg:flex-row justify-between lg:items-center">
+                            <div class="flex flex-col lg:flex-row gap-3 lg:items-center">
+                                <img :src="item?.product?.image" :alt="item?.product?.title"
+                                    :title="item?.product?.title"
+                                    class="w-full lg:w-[5rem] h-[15rem] lg:h-[5rem] rounded-xl select-none">
+                                <NuxtLink class="text-blue-500 text-xl lg:text-lg"
+                                    :to="{ name: 'products-slug', params: { slug: item?.product?.slug } }">{{
+                                        item?.product?.title }}</NuxtLink>
+                            </div>
                             <span>تعداد: {{ item?.quantity }}</span>
                             <span>قیمت پرداختی: {{ toCurrencyString(item?.price) }} تومان</span>
                         </div>
