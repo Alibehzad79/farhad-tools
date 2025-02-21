@@ -1,7 +1,7 @@
 <template>
     <div>
         <div
-            class="flex flex-col lg:flex-row gap-5 items-start lg:items-center justify-between border border-gray-200 dark:border-gray-800 rounded-xl shadow p-2 relative">
+            class="flex flex-col lg:flex-row gap-5 items-start lg:items-center justify-between border border-gray-200 dark:border-gray-800 rounded-xl  p-2 relative">
             <div class="flex gap-3 items-center w-full lg:w-1/2 cursor-pointer"
                 @click="navigateTo({ name: 'products-slug', params: { 'slug': data?.product.slug } })">
                 <img :src="data?.product?.image" :alt="data?.product?.title" :title="data?.product?.title"

@@ -36,6 +36,12 @@ const links = [[
         icon: 'fluent:box-16-regular',
         to: { name: 'orders' },
         labelClass: 'text-lg'
+    },
+    {
+        label: 'پرداختی ها',
+        icon: 'fluent:payment-16-regular',
+        to: { name: 'payments' },
+        labelClass: 'text-lg'
     }, {
         label: 'علاقه مندی ها',
         icon: 'fluent:person-heart-20-regular',

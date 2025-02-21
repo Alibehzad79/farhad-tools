@@ -14,12 +14,12 @@
 
 <script lang="ts" setup>
 definePageMeta({
-    name: 'orders',
+    name: 'payments',
     middleware: 'auth'
 })
 
 useSeoMeta({
-    title: 'سفارشات'
+    title: 'پرداختی ها'
 })
 
 const links = [{
@@ -27,8 +27,8 @@ const links = [{
     icon: 'fluent:home-16-regular',
     to: '/'
 }, {
-    label: 'سفارشات',
-    icon: 'fluent:box-16-regular'
+    label: 'پرداختی ها',
+    icon: 'fluent:payment-16-regular'
 },]
 </script>
 
