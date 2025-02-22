@@ -6,7 +6,8 @@
                 <div class="flex flex-col gap-2">
                     <span class="text-sm">محصولات</span>
                     <div class="flex items-center">
-                        <span class="line-clamp-1 text-blue-500" v-for="item in data?.orderitems">{{ item?.product?.title
+                        <span class="line-clamp-1 text-blue-500" v-for="item in data?.orderitems">{{
+                            item?.product?.title
                             }}</span>
                     </div>
                 </div>
@@ -27,7 +28,9 @@
                     </UBadge>
                     <UBadge v-else-if="data?.status === 'pending'" color="orange" class="justify-center" size="lg">درحال
                         انجام</UBadge>
-                    <UBadge v-else color="red" class="justify-center" size="lg">لغو شده</UBadge>
+                    <UBadge v-else-if="data?.status === 'cancled'" color="rose" class="justify-center" size="lg">لغو شده
+                    </UBadge>
+                    <UBadge v-else color="red" class="justify-center" size="lg">نامشخص</UBadge>
                 </div>
             </div>
         </div>

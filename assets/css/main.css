@@ -21,3 +21,19 @@ input[type="number"] {
     -moz-appearance: textfield;
     text-align: center;
 }
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    @page {
+        size: landscape;
+    }
+
+    /* اینجا می‌توانید تنظیمات اضافی برای پرینت داشته باشید */
+    body {
+        font-size: 12px;
+        color: #000;
+    }
+}
