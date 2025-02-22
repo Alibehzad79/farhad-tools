@@ -81,7 +81,7 @@
                                             class="w-full justify-center" size="lg" variant="soft" />
                                     </UChip>
                                     <span class="text-gray-500 text-sm line-through">{{ toCurrencyString(product?.price)
-                                        }}
+                                    }}
                                         تومان</span>
                                 </div>
                                 <UButton v-if="product?.discount <= 0"
@@ -346,7 +346,12 @@ const addToCart = async () => {
 
 useSeoMeta({
     title: product?.value?.title ?? 'محصول',
-    description: product?.value?.short_description ?? 'توضیحات'
+    description: product?.value?.short_description ?? 'توضیحات',
+    ogTitle: product?.value?.title ?? 'محصول',
+    ogDescription: product?.value?.short_description ?? 'توضیحات',
+    ogImage: product?.value?.image ?? 'Image',
+    twitterCard: 'summary_large_image',
+    keywords: product?.value?.keywords ?? 'keywords',
 })
 </script>
 

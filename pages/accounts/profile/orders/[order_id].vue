@@ -39,6 +39,9 @@
                         <UBadge v-else-if="order?.status === 'pending'" color="orange" class="justify-center" size="lg">
                             درحال
                             انجام</UBadge>
+                        <UBadge v-else-if="order?.status === 'none'" color="rose" class="justify-center" size="lg">
+                            نامشخص
+                        </UBadge>
                         <UBadge v-else color="red" class="justify-center" size="lg">لغو شده</UBadge>
                     </div>
                 </div>
