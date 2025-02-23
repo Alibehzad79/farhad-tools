@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mt-10">
-            <UContainer>
+            <UContainer class="flex flex-col gap-5">
                 <UBreadcrumb :links="links" />
                 <div v-if="product">
                     <div class="flex flex-col lg:flex-row gap-10 mt-10 p-2">
@@ -81,7 +81,7 @@
                                             class="w-full justify-center" size="lg" variant="soft" />
                                     </UChip>
                                     <span class="text-gray-500 text-sm line-through">{{ toCurrencyString(product?.price)
-                                    }}
+                                        }}
                                         تومان</span>
                                 </div>
                                 <UButton v-if="product?.discount <= 0"
@@ -345,13 +345,13 @@ const addToCart = async () => {
 }
 
 useSeoMeta({
-    title: product?.value?.title ?? 'محصول',
-    description: product?.value?.short_description ?? 'توضیحات',
-    ogTitle: product?.value?.title ?? 'محصول',
-    ogDescription: product?.value?.short_description ?? 'توضیحات',
-    ogImage: product?.value?.image ?? 'Image',
+    title: product?.value?.title ?? 'محصول' + route.params.slug,
+    description: product?.value?.short_description ?? 'توضیحات' + route.params.slug,
+    ogTitle: product?.value?.title ?? 'محصول' + route.params.slug,
+    ogDescription: product?.value?.short_description ?? 'توضیحات' + route.params.slug,
+    ogImage: product?.value?.image ?? 'Image' + route.params.slug,
     twitterCard: 'summary_large_image',
-    keywords: product?.value?.keywords ?? 'keywords',
+    keywords: product?.value?.keywords ?? 'keywords' + route.params.slug,
 })
 </script>
 

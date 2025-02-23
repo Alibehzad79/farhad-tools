@@ -4,7 +4,7 @@ export const useAuthStore = defineStore('auth', {
     state: () => ({
         isAuthenticated: false,
         tokenVerified: false,
-        user: null,
+        user: {},
     }),
     actions: {
         async getLogin(body: Object) {
@@ -111,13 +111,13 @@ export const useAuthStore = defineStore('auth', {
         },
 
         async getUserDetail() {
-            const { data, status } = await useFetch<null>('/api/accounts/profile/detail', {
+            const { data, status } = await useFetch<{}>('/api/accounts/profile/detail', {
                 method: 'get',
             })
             if (data.value && status.value === "success") {
                 this.user = data?.value
             } else {
-                this.user = null
+                this.user = {}
             }
         },
         async getEditUserDetail(body: Object) {

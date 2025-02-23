@@ -2,33 +2,33 @@ import { defineStore } from "pinia"
 
 export const useProductStore = defineStore('productStore', {
     state: () => ({
-        categories_tags: null,
+        categories_tags: [],
         product: null,
-        products: null,
+        products: [],
     }),
     actions: {
         async getAllProductList() {
-            const { data, status, error } = await useFetch<null>('/api/products/list', {
+            const { data, status, error } = await useFetch<[]>('/api/products/list', {
                 method: "get"
             })
             if (data?.value && status.value === "success") {
                 this.products = data?.value
             } else {
-                this.products = null
+                this.products = []
             }
         },
         async getCategoriesTags() {
-            const { data, status } = await useFetch<null>('/api/products/categories_tags', {
+            const { data, status } = await useFetch<[]>('/api/products/categories_tags', {
                 method: "get"
             })
             if (data?.value && status.value === "success") {
                 this.categories_tags = data?.value
             } else {
-                this.categories_tags = null
+                this.categories_tags = []
             }
         },
         async getSearch(query: string) {
-            const { data, status } = await useFetch<null>('/api/products/search', {
+            const { data, status } = await useFetch<[]>('/api/products/search', {
                 method: "get",
                 query: {
                     "query": query
@@ -37,7 +37,7 @@ export const useProductStore = defineStore('productStore', {
             if (data?.value && status.value === "success") {
                 this.products = data?.value
             } else {
-                this.products = null
+                this.products = []
             }
         },
         async getProduct(slug: string) {

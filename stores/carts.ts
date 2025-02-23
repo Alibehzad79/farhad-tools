@@ -4,7 +4,7 @@ export const useCartStore = defineStore('carts', {
     state: () => ({
         carts: {},
         loading: false,
-        cart: null,
+        cart: {},
     }),
     actions: {
         async getUserCarts() {
@@ -34,7 +34,7 @@ export const useCartStore = defineStore('carts', {
                 method: 'delete',
                 body: JSON.stringify(body)
             })
-            this.cart = null
+            this.cart = {}
             await this.getUserCarts()
             return status.value
         },
@@ -44,7 +44,7 @@ export const useCartStore = defineStore('carts', {
             if (this.carts?.carts.some(cart => cart?.product?.slug === productSlug)) {
                 this.cart = this.carts?.carts.find(cart => cart?.product?.slug === productSlug);
             } else {
-                this.cart = null
+                this.cart = {}
             }
         },
         async addToCart(body: object) {

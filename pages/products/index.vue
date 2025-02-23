@@ -5,7 +5,7 @@
                 <UBreadcrumb :links="links" />
                 <div class="flex flex-col lg:flex-row gap-10">
                     <div class="border dark:border-gray-600 w-1/4 p-3 rounded flex-col gap-5 lg:flex hidden h-screen"
-                        v-if="productStore.categories_tags">
+                        v-if="categories_tags">
                         <div class="flex flex-col gap-3">
                             <span class="text-lg">دسته بندی ها</span>
                             <div class="flex flex-col gap-5">
@@ -64,11 +64,11 @@
                         </UPopover>
                     </div>
 
-                    <div class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-5" v-if="productStore.products">
+                    <div class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-5" v-if="products.length > 0">
                         <MyLoading v-if="loading" />
                         <ProductCard v-for="product in products" :data="product" v-if="!loading" />
                     </div>
-                    <div class="w-full lg:w-3/4" v-if="!productStore.products">
+                    <div class="w-full lg:w-3/4" v-if="products.length < 1">
                         <UAlert title="محصولی یافت نشد." description="404 Not Found" color="primary" variant="outline"
                             icon="fluent:error-circle-16-regular"
                             :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', size: 'xl', click: () => getRefreshAllProduct(), loading: refreshLoading }]" />

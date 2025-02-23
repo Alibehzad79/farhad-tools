@@ -27,6 +27,10 @@
               </UDropdown>
             </div>
           </div>
+          <UChip v-if="isAuthenticated" :text="carts.carts.length" size="3xl">
+            <UButton icon="fluent:cart-16-regular" variant="soft" @click="navigateTo({ name: 'carts' })" />
+          </UChip>
+          <UButton icon="fluent:search-16-regular" variant="ghost" @click="isOpenSearchModal = true" />
           <UButton
             :icon="colorMode.value === 'dark' ? 'fluent:weather-sunny-16-regular' : 'fluent:weather-moon-16-regular'"
             variant="ghost" @click="changeColorMode" />
@@ -49,10 +53,11 @@
           <h1 class="text-3xl">فرهاد ابزار</h1>
         </div>
         <div class="flex items-center gap-3">
-          <UChip v-if="isAuthenticated" text="0" size="3xl">
-            <UButton icon="fluent:cart-16-regular" variant="soft" @click="navigateTo({ name: 'cart' })" />
-          </UChip>
           <UButton icon="fluent:line-horizontal-3-16-regular" @click="isOpen = !isOpen" />
+          <UChip v-if="isAuthenticated" :text="carts.carts.length" size="3xl">
+            <UButton icon="fluent:cart-16-regular" variant="soft" @click="navigateTo({ name: 'carts' })" />
+          </UChip>
+          <UButton icon="fluent:search-16-regular" variant="ghost" @click="isOpenSearchModal = true" />
           <UButton
             :icon="colorMode.value === 'dark' ? 'fluent:weather-sunny-16-regular' : 'fluent:weather-moon-16-regular'"
             variant="ghost" @click="changeColorMode" />
@@ -105,14 +110,39 @@
           </div>
         </USlideover>
       </div>
+      <UModal v-model="isOpenSearchModal">
+        <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+          <template #header>
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+                جستوجو کنید.
+              </h3>
+              <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
+                @click="isOpenSearchModal = false" />
+            </div>
+          </template>
+
+          <div class="w-full flex items-center gap-3">
+            <UInput v-model="searchValue" placeholder="نام محصول و ..." variant="outline" class="w-full" autofocus />
+            <UButton label="جستوجو" :to="{ name: 'search', query: { 'query': searchValue } }" target="_parent"
+              @click="isOpenSearchModal = false" />
+          </div>
+        </UCard>
+      </UModal>
     </UContainer>
+
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useAuthStore } from '~/stores/auth'
+import { useCartStore } from '~/stores/carts'
 import { storeToRefs } from 'pinia'
 const authStore = useAuthStore()
+const cartStore = useCartStore()
+
+await cartStore.getUserCarts()
+const { carts } = storeToRefs(cartStore)
 
 const { isAuthenticated, user } = storeToRefs(authStore)
 
@@ -120,6 +150,9 @@ const appConfig = useAppConfig();
 const changeUiColor = (color: string) => {
   appConfig.ui.primary = color
 }
+
+const isOpenSearchModal = ref(false)
+const searchValue = ref('')
 
 const links = [{
   label: 'خانه',

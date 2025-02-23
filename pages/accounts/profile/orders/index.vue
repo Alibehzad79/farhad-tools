@@ -40,7 +40,6 @@
                                 variant="soft" />
                         </div>
                     </div>
-                    <div v-if="error">{{ error }}</div>
                 </div>
             </UContainer>
         </div>

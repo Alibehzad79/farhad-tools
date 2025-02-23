@@ -2,8 +2,8 @@ import { defineStore } from "pinia"
 
 export const useOrderStore = defineStore('orderStore', {
     state: () => ({
-        orders: null,
-        order: null,
+        orders: [],
+        order: {},
         error: ""
     }),
     actions: {
@@ -30,6 +30,7 @@ export const useOrderStore = defineStore('orderStore', {
             if (data.value && status.value === "success") {
                 this.orders = data.value
             } else {
+                this.orders = []
                 this.error = "خطا"
             }
         },
@@ -44,6 +45,7 @@ export const useOrderStore = defineStore('orderStore', {
                 this.order = data.value
             }
             if (error) {
+                this.order = {}
                 this.error = error.value?.data['msg']
             }
         }

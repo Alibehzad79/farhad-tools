@@ -20,7 +20,7 @@
                 </div>
 
                 <template #footer>
-                    <div class="flex justify-between items-center w-full">
+                    <div class="flex justify-between items-start w-full">
                         <div v-if="data?.status === 'active'">
                             <div v-if="data?.discount > 0">
                                 <UChip :text="data?.discount + '%'" color="red" size="xl" position="top-left"
@@ -40,7 +40,7 @@
                             <UTooltip
                                 :text="!authStore.isAuthenticated ? 'برای افزودن به لیست علاقه مندی ها، وارد اکانت شوید.' : isInWishlist ? ' حذف از لیست علاقه مندی ها' : 'افزودن به لیست علاقه مندی ها'">
                                 <UButton :icon="isInWishlist ? 'fluent:heart-16-filled' : 'fluent:heart-16-regular'"
-                                    @click="toggleWishlist" :disabled="!authStore.isAuthenticated" />
+                                    @click="toggleWishlist" :disabled="!authStore.isAuthenticated" size="lg" />
                             </UTooltip>
                         </div>
                     </div>
