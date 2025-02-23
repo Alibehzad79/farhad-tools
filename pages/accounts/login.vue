@@ -58,13 +58,19 @@ const btnLoading = ref(false)
 
 const toast = useToast()
 
+const route = useRoute()
+
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   btnLoading.value = true
   const resulte = await authStore.getLogin(event.data)
   if (resulte === "success") {
     authStore.isAuthenticated = true
     toast.add({
-      title: "ورود موفق", description: "درحال تغییر صفحه...", color: "green", id: 'success_login', icon: "fluent:checkmark-circle-16-regular", timeout: 1000, callback: () => { navigateTo('/') }
+      title: "ورود موفق", description: "درحال تغییر صفحه...", color: "green", id: 'success_login', icon: "fluent:checkmark-circle-16-regular", timeout: 1000, callback: () => {
+        if (route.query.backURL !== '') { navigateTo(route.query.backURL) } else {
+          navigateTo('/')
+        }
+      }
     })
   }
   if (resulte === "error") {

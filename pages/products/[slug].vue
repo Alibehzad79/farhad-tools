@@ -2,8 +2,8 @@
     <div>
         <div class="mt-10">
             <UContainer>
+                <UBreadcrumb :links="links" />
                 <div v-if="product">
-                    <UBreadcrumb :links="links" />
                     <div class="flex flex-col lg:flex-row gap-10 mt-10 p-2">
                         <div class="w-full lg:w-1/2">
                             <img :src="product?.image" :alt="product?.title" :title="product?.title"
@@ -131,7 +131,7 @@
                                         </UTooltip>
                                     </div>
                                     <span class="block text-red-500" v-if="!isAuthenticated">برای خرید <NuxtLink
-                                            :to="{ name: 'login' }" class="underline">
+                                            :to="{ name: 'login', query: { backURL: route.path } }" class="underline">
                                             وارد</NuxtLink> شوید</span>
                                 </div>
                             </div>
@@ -184,7 +184,7 @@ const { isAuthenticated } = storeToRefs(useAuthStore())
 const route = useRoute()
 const productStore = useProductStore()
 await productStore.getProduct(String(route.params.slug))
-const { product } = storeToRefs(productStore)
+const { product, pending } = storeToRefs(productStore)
 const cartStore = useCartStore()
 await cartStore.getUserCarts()
 await cartStore.checkCartExists(product?.value?.slug)

@@ -26,7 +26,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         user.value = null
         if (to?.name === 'register') return
         abortNavigation()
-        return navigateTo({ name: 'login' })
+
+        return navigateTo({ name: 'login', query: { backURL: from.path } })
     }
 
 

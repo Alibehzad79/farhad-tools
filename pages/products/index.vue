@@ -65,9 +65,7 @@
                     </div>
 
                     <div class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-5" v-if="productStore.products">
-                        <div v-if="loading" class="flex justify-center">
-                            <Icon name="svg-spinners:ring-resize" size="25" />
-                        </div>
+                        <MyLoading v-if="loading" />
                         <ProductCard v-for="product in products" :data="product" v-if="!loading" />
                     </div>
                     <div class="w-full lg:w-3/4" v-if="!productStore.products">
@@ -106,7 +104,7 @@ const links = [{
 const productStore = useProductStore()
 await productStore.getAllProductList()
 await productStore.getCategoriesTags()
-const { products, categories_tags } = storeToRefs(productStore)
+const { products, categories_tags, pending } = storeToRefs(productStore)
 
 
 const refreshLoading = ref(false)
