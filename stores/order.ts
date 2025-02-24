@@ -3,7 +3,7 @@ import { defineStore } from "pinia"
 export const useOrderStore = defineStore('orderStore', {
     state: () => ({
         orders: [],
-        order: {},
+        order: null,
         error: ""
     }),
     actions: {
@@ -35,7 +35,7 @@ export const useOrderStore = defineStore('orderStore', {
             }
         },
         async orderDetail(query: string) {
-            const { data, status, error } = await useFetch<null>('/api/orders/detail', {
+            const { data, status } = await useFetch<null>('/api/orders/detail', {
                 method: "get",
                 query: {
                     "order_id": query
@@ -44,9 +44,9 @@ export const useOrderStore = defineStore('orderStore', {
             if (data.value && status.value === "success") {
                 this.order = data.value
             }
-            if (error) {
-                this.order = {}
-                this.error = error.value?.data['msg']
+            else {
+                this.order = null
+                this.error = "خطا"
             }
         }
     }

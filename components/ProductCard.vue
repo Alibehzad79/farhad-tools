@@ -1,22 +1,22 @@
 <template>
     <div>
         <div class="">
-            <UCard class="w-full" :ui="{ divide: '' }">
+            <UCard class="w-full flex flex-col justify-between h-[40rem]" :ui="{ divide: '' }">
                 <template #header>
                     <div class="w-full">
                         <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }">
                             <img :src="data?.image" :alt="data?.title" :title="data?.title"
-                                class="w-full lg:h-[20rem] h-96 rounded" loading="lazy">
+                                class="w-full h-[20rem] rounded select-none" loading="lazy" draggable="false">
                         </NuxtLink>
                     </div>
                 </template>
 
                 <div class="flex flex-col justify-between gap-3">
-                    <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }"><strong class="text-lg">{{
+                    <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }"><strong class="text-lg select-none">{{
                         data?.title
                             }}</strong>
                     </NuxtLink>
-                    <p class="text-gray-500 line-clamp-3">{{ data?.short_description }}</p>
+                    <p class="text-gray-500 line-clamp-3 select-none">{{ data?.short_description }}</p>
                 </div>
 
                 <template #footer>

@@ -2,13 +2,13 @@ import { defineStore } from 'pinia'
 
 export const useCartStore = defineStore('carts', {
     state: () => ({
-        carts: {},
+        carts: [],
         loading: false,
-        cart: {},
+        cart: null,
     }),
     actions: {
         async getUserCarts() {
-            const { data, status } = await useFetch<{}>('/api/carts/list', {
+            const { data, status } = await useFetch<[]>('/api/carts/list', {
                 method: 'get',
                 key: 'user-carts'
             })
@@ -34,7 +34,7 @@ export const useCartStore = defineStore('carts', {
                 method: 'delete',
                 body: JSON.stringify(body)
             })
-            this.cart = {}
+            this.cart = null
             await this.getUserCarts()
             return status.value
         },
@@ -44,7 +44,7 @@ export const useCartStore = defineStore('carts', {
             if (this.carts?.carts.some(cart => cart?.product?.slug === productSlug)) {
                 this.cart = this.carts?.carts.find(cart => cart?.product?.slug === productSlug);
             } else {
-                this.cart = {}
+                this.cart = null
             }
         },
         async addToCart(body: object) {

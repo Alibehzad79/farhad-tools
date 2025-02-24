@@ -6,6 +6,10 @@
                 <div class="flex flex-col lg:flex-row gap-10">
                     <div class="border dark:border-gray-600 w-1/4 p-3 rounded flex-col gap-5 lg:flex hidden h-screen"
                         v-if="categories_tags">
+                        <div class="flex justify-between items-center">
+                            <span>جدید</span>
+                            <UToggle v-model="newProduct" name="جدید" />
+                        </div>
                         <div class="flex flex-col gap-3">
                             <span class="text-lg">دسته بندی ها</span>
                             <div class="flex flex-col gap-5">
@@ -35,6 +39,10 @@
                             <template #panel>
                                 <div class="p-4 w-full">
                                     <div class="flex flex-col gap-5" v-if="productStore.categories_tags">
+                                        <div class="flex justify-between items-center">
+                                            <span>جدید</span>
+                                            <UToggle v-model="newProduct" name="جدید" />
+                                        </div>
                                         <div class="flex flex-col gap-3">
                                             <span class="text-lg">دسته بندی ها</span>
                                             <div class="flex flex-col gap-5">
@@ -101,6 +109,8 @@ const links = [{
     icon: 'fluent:building-shop-16-regular'
 }]
 
+const newProduct = ref(true)
+
 const productStore = useProductStore()
 await productStore.getAllProductList()
 await productStore.getCategoriesTags()
@@ -117,12 +127,24 @@ const getRefreshAllProduct = async () => {
 
 const loading = ref(false)
 const getDoSearch = async (query: string) => {
+    newProduct.value = true
     openPopover.value = false
     loading.value = true
     await productStore.getSearch(query)
     loading.value = false
 
 }
+
+watch(newProduct, async (newValue, oldValue) => {
+    openPopover.value = false
+    loading.value = true
+    const query = ref("new")
+    if (!newValue) {
+        query.value = "old"
+    }
+    await productStore.getSearch(query)
+    loading.value = false
+})
 
 </script>
 
