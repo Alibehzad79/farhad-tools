@@ -76,6 +76,7 @@ const { orders, error } = storeToRefs(orderStore)
 const searchValue = ref('')
 
 watch(searchValue, async (newValue, oldValue) => {
+    await await orderStore.getUserOrders()
     if (newValue === '' || newValue === ' ') {
         await await orderStore.getUserOrders()
     }

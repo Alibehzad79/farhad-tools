@@ -5,6 +5,8 @@ export const useProductStore = defineStore('productStore', {
         categories_tags: [],
         product: null,
         products: [],
+        newProducts: [],
+        popularProducts: [],
     }),
     actions: {
         async getAllProductList() {
@@ -49,6 +51,32 @@ export const useProductStore = defineStore('productStore', {
                 this.product = data?.value
             } else {
                 this.product = null
+            }
+        },
+        async getNewProductList() {
+            const { data, status, error } = await useFetch<[]>('/api/products/search', {
+                method: "get",
+                query: {
+                    "query": 'new'
+                },
+            })
+            if (data?.value && status.value === "success") {
+                this.newProducts = data?.value
+            } else {
+                this.newProducts = []
+            }
+        },
+        async getPopualrProductList() {
+            const { data, status, error } = await useFetch<[]>('/api/products/search', {
+                method: "get",
+                query: {
+                    "query": 'view'
+                },
+            })
+            if (data?.value && status.value === "success") {
+                this.popularProducts = data?.value
+            } else {
+                this.popularProducts = []
             }
         },
     }

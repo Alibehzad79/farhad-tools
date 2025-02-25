@@ -7,7 +7,7 @@
                     <div class="flex flex-col lg:flex-row gap-10 mt-10 p-2">
                         <div class="w-full lg:w-1/2">
                             <img :src="product?.image" :alt="product?.title" :title="product?.title"
-                                class="rounded-xl w-full">
+                                class="rounded-xl w-full h-[25rem]">
                             <div v-if="product?.galleries" class="mt-5">
                                 <div class="flex items-center overflow-hidden gap-5 justify-center">
                                     <img v-for="gallery in product?.galleries" :src="gallery.image" :alt="gallery.title"
@@ -55,8 +55,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-ful lg:w-1/2 flex flex-col gap-5 justify-evenly">
-                            <div class=" flex flex-col gap-3">
+                        <div class="w-ful lg:w-1/2 flex flex-col gap-5 justify-between">
+                            <div class=" flex flex-col gap-5">
+                                <div class="flex items-center gap-2 text-primary">
+                                    <Icon name="fluent:people-eye-16-regular" size="25" />
+                                    <span>{{ toHumanNumber(product?.visit_count) }} بازدید</span>
+                                </div>
                                 <h1 class=" text-2xl font-bold">{{ product?.title }}</h1>
                                 <p class="text-gray-500 line-clamp-5">{{ product?.short_description }}</p>
                             </div>
@@ -81,12 +85,12 @@
                                             class="w-full justify-center" size="lg" variant="soft" />
                                     </UChip>
                                     <span class="text-gray-500 text-sm line-through">{{ toCurrencyString(product?.price)
-                                        }}
+                                    }}
                                         تومان</span>
                                 </div>
                                 <UButton v-if="product?.discount <= 0"
-                                    :label="toCurrencyString(product?.price) + ' تومان'" class="justify-center"
-                                    size="lg" variant="soft" />
+                                    :label="'قیمت: ' + toCurrencyString(product?.price) + ' تومان'"
+                                    class="justify-center self-start w-full lg:w-auto" size="lg" variant="soft" />
                                 <div class="flex flex-col gap-3">
                                     <div class="flex flex-col items-center gap-5" v-if="cart && isAuthenticated">
                                         <div>
@@ -178,6 +182,7 @@ import { useAuthStore } from "~/stores/auth"
 import { useWishlistStore } from '~/stores/wishlist'
 import { storeToRefs } from 'pinia'
 import { toCurrencyString } from "~/composables/toCurrency"
+import { toHumanNumber } from "~/composables/humanNumber"
 
 const { isAuthenticated } = storeToRefs(useAuthStore())
 
