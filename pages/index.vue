@@ -38,6 +38,7 @@
         </div>
         <NewProductsCarusel />
         <PopularProductsCarusel />
+        <DiscountProductsCarusel />
       </div>
     </UContainer>
   </div>

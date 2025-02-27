@@ -6,7 +6,7 @@
     </div>
     <Header />
     <slot />
-    <footer class="mt-10"></footer>
+    <Footer />
   </div>
 </template>
 

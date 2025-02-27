@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="flex flex-col border border-gray-200 dark:border-gray-800 rounded-xl"
-            v-if="popularProducts.length > 0">
-            <div class="p-4 rounded-xl rounded-b-none bg-primary text-white flex justify-between">
-                <strong>پربازدید ترین محصولات</strong>
-                <UButton label="دیدن همه" variant="link" :to="{ name: 'search', query: { query: 'view' } }"
+            v-if="discountProducts.length > 0">
+            <div class="p-4 rounded-xl rounded-b-none bg-red-500 text-white flex justify-between">
+                <strong>پر تخفیف ترین محصولات</strong>
+                <UButton label="دیدن همه" variant="link" :to="{ name: 'search', query: { query: 'discount' } }"
                     color="white" trailing-icon="fluent:arrow-circle-left-16-regular" />
             </div>
-            <UCarousel :items="popularProducts.slice(0, 8)"
+            <UCarousel :items="discountProducts.slice(0, 8)"
                 :ui="{ item: 'basis-full md:basis-1/2 lg:basis-1/3', container: 'gap-5 p-3' }"
                 class="rounded-lg overflow-hidden p-4" indicators arrows dir="rtl" ref="carouselRef">
                 <template #default="{ item }">
@@ -25,8 +25,8 @@ import { storeToRefs } from 'pinia'
 import { useProductStore } from "~/stores/product"
 
 const productStore = useProductStore()
-await productStore.getPopualrProductList()
-const { popularProducts } = storeToRefs(productStore)
+await productStore.getDiscountProductList()
+const { discountProducts } = storeToRefs(productStore)
 
 </script>
 

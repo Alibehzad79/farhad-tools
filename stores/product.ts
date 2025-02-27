@@ -7,6 +7,7 @@ export const useProductStore = defineStore('productStore', {
         products: [],
         newProducts: [],
         popularProducts: [],
+        discountProducts: [],
     }),
     actions: {
         async getAllProductList() {
@@ -77,6 +78,19 @@ export const useProductStore = defineStore('productStore', {
                 this.popularProducts = data?.value
             } else {
                 this.popularProducts = []
+            }
+        },
+        async getDiscountProductList() {
+            const { data, status, error } = await useFetch<[]>('/api/products/search', {
+                method: "get",
+                query: {
+                    "query": 'discount'
+                },
+            })
+            if (data?.value && status.value === "success") {
+                this.discountProducts = data?.value
+            } else {
+                this.discountProducts = []
             }
         },
     }
