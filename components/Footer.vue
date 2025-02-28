@@ -2,23 +2,23 @@
     <div>
         <UContainer class="my-10 ">
             <UDivider>
-                <div class="flex gap-5 overflow-hidden">
+                <div class="grid grid-cols-4 gap-10 mx-5 justify-items-center">
                     <NuxtLink to="#">
-                        <Icon name="logos:instagram-icon" size="20" />
+                        <Icon name="bxl:instagram" size="30" />
                     </NuxtLink>
                     <NuxtLink to="#">
-                        <Icon name="logos:telegram" size="20" />
+                        <Icon name="bxl:telegram" size="30" />
                     </NuxtLink>
                     <NuxtLink to="#">
-                        <Icon name="logos:facebook" size="20" />
+                        <Icon name="bxl:facebook" size="30" />
                     </NuxtLink>
                     <NuxtLink to="#">
-                        <Icon name="logos:whatsapp-icon" size="20" />
+                        <Icon name="bxl:whatsapp" size="30" />
                     </NuxtLink>
                 </div>
             </UDivider>
-            <div class="flex justify-between gap-10 text-center mt-10">
-                <div class="flex flex-col gap-5 w-1/2">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-10 text-center mt-10">
+                <div class="flex flex-col gap-5 w-full lg:w-1/2">
                     <h2 class="text-2xl font-bold">فرهاد ابزار</h2>
                     <p class="text-gray-500">
                         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
@@ -32,7 +32,7 @@
                     <UButton label="test@mail.com" icon="fluent:mail-16-regular" variant="ghost"
                         class="justify-center" />
                 </div>
-                <div class="flex flex-col gap-5 w-1/2">
+                <div class="flex flex-col gap-5 w-full lg:w-1/2">
                     <h6 class="text-2xl font-bold">لینک های داخلی</h6>
                     <UVerticalNavigation :links="links" :ui="{ base: 'justify-center' }" />
                 </div>

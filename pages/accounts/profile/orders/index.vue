@@ -75,7 +75,11 @@ const { orders, error } = storeToRefs(orderStore)
 
 const searchValue = ref('')
 
+const { start, set, finish } = useLoadingIndicator()
+
+
 watch(searchValue, async (newValue, oldValue) => {
+    start()
     await await orderStore.getUserOrders()
     if (newValue === '' || newValue === ' ') {
         await await orderStore.getUserOrders()
@@ -84,13 +88,16 @@ watch(searchValue, async (newValue, oldValue) => {
         return order.order_id.includes(newValue) ||
             order.orderitems.some(item => item.product.title.includes(newValue))
     })
+    finish()
 });
 
 const filterOrder = async (f) => {
+    start()
     await await orderStore.getUserOrders()
     orders.value = orders.value.filter(order => {
         return order.status.includes(f)
     })
+    finish()
 }
 
 

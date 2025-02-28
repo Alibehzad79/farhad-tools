@@ -5,6 +5,7 @@
                 <UBreadcrumb :links="links" />
                 <div></div>
             </div>
+            {{ primaryColor }}
         </UContainer>
     </div>
 </template>

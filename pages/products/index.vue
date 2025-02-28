@@ -73,8 +73,7 @@
                     </div>
 
                     <div class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-5" v-if="products.length > 0">
-                        <MyLoading v-if="loading" />
-                        <ProductCard v-for="product in products" :data="product" v-if="!loading" />
+                        <ProductCard v-for="product in products" :data="product" />
                     </div>
                     <div class="w-full lg:w-3/4" v-if="products.length < 1">
                         <UAlert title="محصولی یافت نشد." description="404 Not Found" color="primary" variant="outline"
@@ -116,7 +115,7 @@ await productStore.getAllProductList()
 await productStore.getCategoriesTags()
 const { products, categories_tags, pending } = storeToRefs(productStore)
 
-
+const { start, set, finish } = useLoadingIndicator()
 const refreshLoading = ref(false)
 const getRefreshAllProduct = async () => {
     refreshLoading.value = true
@@ -129,21 +128,21 @@ const loading = ref(false)
 const getDoSearch = async (query: string) => {
     newProduct.value = true
     openPopover.value = false
-    loading.value = true
+    start()
     await productStore.getSearch(query)
-    loading.value = false
+    finish()
 
 }
 
 watch(newProduct, async (newValue, oldValue) => {
     openPopover.value = false
-    loading.value = true
+    start()
     const query = ref("new")
     if (!newValue) {
         query.value = "old"
     }
     await productStore.getSearch(query)
-    loading.value = false
+    finish()
 })
 
 </script>
