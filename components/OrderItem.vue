@@ -24,13 +24,13 @@
                 <UDivider class="md:hidden" />
                 <div class="flex flex-col gap-2">
                     <span class="text-sm">وضعیت</span>
-                    <UBadge v-if="data?.status === 'done'" color="green" class="justify-center" size="lg">انجام شده
+                    <UBadge v-if="data?.status === 'done'" color="green" class="justify-center">انجام شده
                     </UBadge>
-                    <UBadge v-else-if="data?.status === 'pending'" color="orange" class="justify-center" size="lg">درحال
+                    <UBadge v-else-if="data?.status === 'pending'" color="orange" class="justify-center">درحال
                         انجام</UBadge>
-                    <UBadge v-else-if="data?.status === 'cancled'" color="rose" class="justify-center" size="lg">لغو شده
+                    <UBadge v-else-if="data?.status === 'cancled'" color="rose" class="justify-center">لغو شده
                     </UBadge>
-                    <UBadge v-else color="red" class="justify-center" size="lg">نامشخص</UBadge>
+                    <UBadge v-else color="red" class="justify-center">نامشخص</UBadge>
                 </div>
             </div>
         </div>

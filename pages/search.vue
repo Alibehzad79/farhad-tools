@@ -3,7 +3,7 @@
         <UContainer class="mt-10 flex flex-col gap-10">
             <UBreadcrumb :links="links" />
             <div v-if="products.length > 0">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="w-full grid grid-cols-1 md:grid-cols-5">
                     <ProductCard v-for="product in products" :data="product" />
                 </div>
             </div>

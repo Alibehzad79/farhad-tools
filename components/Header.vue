@@ -12,17 +12,17 @@
           <div class="flex gap-3">
             <div class="flex gap-3" v-if="!isAuthenticated">
               <NuxtLink :to="{ name: 'login' }">
-                <UButton label="ورود" size="xl" icon="fluent:key-16-regular" />
+                <UButton label="ورود" icon="fluent:key-16-regular" />
               </NuxtLink>
               <NuxtLink :to="{ name: 'register' }">
-                <UButton label="ثبت نام" variant="soft" size="xl" icon="fluent:person-add-16-regular" />
+                <UButton label="ثبت نام" variant="soft" icon="fluent:person-add-16-regular" />
               </NuxtLink>
             </div>
             <div class="flex gap-3" v-if="isAuthenticated">
               <UDropdown :items="items" :popper="{ placement: 'bottom-start' }" dir="rtl">
-                <UButton size="xl" variant="soft" :label="`${user?.first_name} ${user?.last_name}`"
+                <UButton variant="soft" :label="`${user?.first_name} ${user?.last_name}`"
                   trailing-icon="i-heroicons-chevron-down-20-solid" v-if="user" />
-                <UButton size="xl" variant="soft" label="حساب کاربری" trailing-icon="i-heroicons-chevron-down-20-solid"
+                <UButton variant="soft" label="حساب کاربری" trailing-icon="i-heroicons-chevron-down-20-solid"
                   v-else />
               </UDropdown>
             </div>
@@ -41,7 +41,7 @@
               <div class="p-4 flex flex-col gap-3">
                 <div class="grid grid-cols-4 gap-2">
                   <UButton variant="solid" icon="fluent:checkbox-indeterminate" :color="color"
-                    v-for="color in appConfig.ui.colors" class="justify-center p-3" @click="changeUiColor(color)" />
+                    v-for="color in appConfig.ui.colors" class="justify-center" @click="changeUiColor(color)" />
                 </div>
               </div>
             </template>
@@ -50,11 +50,11 @@
       </div>
       <div class="lg:hidden mt-5 flex justify-between">
         <div>
-          <h1 class="text-3xl">فرهاد ابزار</h1>
+          <h1 class="text-2xl">فرهاد ابزار</h1>
         </div>
         <div class="flex items-center gap-3">
           <UButton icon="fluent:line-horizontal-3-16-regular" @click="isOpen = !isOpen" />
-          <UChip v-if="isAuthenticated" :text="carts.carts.length" size="3xl">
+          <UChip v-if="isAuthenticated" :text="carts.carts.length" size="xl">
             <UButton icon="fluent:cart-16-regular" variant="soft" @click="navigateTo({ name: 'carts' })" />
           </UChip>
           <UButton icon="fluent:search-16-regular" variant="ghost" @click="isOpenSearchModal = true" />
@@ -81,7 +81,7 @@
               <template #header>
                 <div class="flex items-center justify-between">
                   <h6 class="text-xl">منو</h6>
-                  <UButton color="gray" variant="ghost" size="sm" icon="i-heroicons-x-mark-20-solid" square padded
+                  <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" square padded
                     @click="isOpen = false" />
                 </div>
               </template>
@@ -93,17 +93,17 @@
               <template #footer>
                 <div class="flex items-center justify-between" v-if="!isAuthenticated">
                   <NuxtLink :to="{ name: 'login' }" @click="isOpen = !isOpen">
-                    <UButton label="ورود" size="xl" icon="fluent:key-16-regular" />
+                    <UButton label="ورود" icon="fluent:key-16-regular" />
                   </NuxtLink>
                   <NuxtLink :to="{ name: 'register' }" @click="isOpen = !isOpen">
-                    <UButton label="ثبت نام" variant="soft" size="xl" icon="fluent:person-add-16-regular" />
+                    <UButton label="ثبت نام" variant="soft" icon="fluent:person-add-16-regular" />
                   </NuxtLink>
                 </div>
                 <div class="flex items-center justify-between" v-if="isAuthenticated">
                   <NuxtLink :to="{ name: 'profile' }" @click="isOpen = !isOpen">
-                    <UButton :label="user?.full_name" variant="soft" size="xl" icon="fluent:person-16-regular" />
+                    <UButton :label="user?.full_name" variant="soft" icon="fluent:person-16-regular" />
                   </NuxtLink>
-                  <UButton label="خروج" color="red" size="xl" icon="fluent:key-16-regular" @click="getLogout" />
+                  <UButton label="خروج" color="red" icon="fluent:key-16-regular" @click="getLogout" />
                 </div>
               </template>
             </UCard>
@@ -158,7 +158,6 @@ const links = [{
   label: 'خانه',
   icon: 'fluent:home-16-regular',
   to: '/',
-  labelClass: "text-lg",
   click: () => {
     isOpen.value = false
   }
@@ -166,7 +165,6 @@ const links = [{
   label: 'فروشگاه',
   icon: 'fluent:building-shop-16-regular',
   to: { name: 'products' },
-  labelClass: "text-lg",
   click: () => {
     isOpen.value = false
   }
@@ -174,7 +172,6 @@ const links = [{
   label: 'درباره ما',
   icon: 'fluent:people-team-16-regular',
   to: { name: 'about' },
-  labelClass: "text-lg",
   click: () => {
     isOpen.value = false
   }
@@ -183,7 +180,6 @@ const links = [{
   label: 'تماس با ما',
   icon: 'fluent:call-16-regular',
   to: { name: 'contact' },
-  labelClass: "text-lg",
   click: () => {
     isOpen.value = false
   }

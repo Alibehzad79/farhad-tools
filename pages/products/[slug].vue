@@ -68,29 +68,27 @@
                                 <div class="flex items-center gap-3">
                                     <span>دسته بندی: </span>
                                     <UBadge v-if="product?.category" :label="String(product?.category?.name)"
-                                        size="lg" />
+                                        variant="subtle" />
                                 </div>
                                 <div class="flex flex-wrap gap-3 items-center">
                                     <span>برچسب ها:</span>
                                     <UBadge v-if="product?.tags" v-for="tag in product?.tags" :key="tag?.id"
-                                        :label="String(tag?.name)" size="lg" />
+                                        :label="String(tag?.name)" variant="subtle" />
                                 </div>
                             </div>
-                            <div class="flex flex-col lg:flex-row justify-between gap-3"
+                            <div class="flex flex-col lg:flex-row justify-between gap-3 mt-5"
                                 v-if="product?.status === 'active'">
-                                <div v-if="product?.discount > 0">
-                                    <UChip :text="product?.discount + '%'" color="red" size="xl" position="top-left"
-                                        class="w-full">
-                                        <UButton :label="toCurrencyString(product?.discount_price) + ' تومان'"
-                                            class="w-full justify-center" size="lg" variant="soft" />
+                                <div v-if="product?.discount > 0" class="flex flex-col gap-3">
+                                    <UChip :text="product?.discount + '%'" color="red" position="top-left">
+                                        <span class="w-full justify-center text-lg">{{
+                                            toCurrencyString(product?.discount_price) + ' تومان' }}</span>
                                     </UChip>
                                     <span class="text-gray-500 text-sm line-through">{{ toCurrencyString(product?.price)
                                     }}
                                         تومان</span>
                                 </div>
-                                <UButton v-if="product?.discount <= 0"
-                                    :label="'قیمت: ' + toCurrencyString(product?.price) + ' تومان'"
-                                    class="justify-center self-start w-full lg:w-auto" size="lg" variant="soft" />
+                                <span v-if="product?.discount <= 0" class="justify-center text-lg">{{
+                                    toCurrencyString(product?.price) + ' تومان' }}</span>
                                 <div class="flex flex-col gap-3">
                                     <div class="flex flex-col items-center gap-5" v-if="cart && isAuthenticated">
                                         <div>
@@ -109,7 +107,7 @@
                                                     :text="!isAuthenticated ? 'برای افزودن به لیست علاقه مندی ها، وارد اکانت شوید.' : isInWishlist ? ' حذف از لیست علاقه مندی ها' : 'افزودن به لیست علاقه مندی ها'">
                                                     <UButton
                                                         :icon="isInWishlist ? 'fluent:heart-16-filled' : 'fluent:heart-16-regular'"
-                                                        size="xl" variant="soft" @click="toggleWishlist"
+                                                        variant="ghost" @click="toggleWishlist"
                                                         :disabled="!isAuthenticated" />
                                                 </UTooltip>
                                             </div>
@@ -123,15 +121,13 @@
                                         </div>
                                     </div>
                                     <div v-else class="flex gap-3">
-                                        <UButton label="اضافه به سبد خرید" @click="addToCart" size="xl"
-                                            variant="outline" class="w-4/5 justify-center"
-                                            :disabled="!isAuthenticated" />
+                                        <UButton label="اضافه به سبد خرید" @click="addToCart" variant="outline"
+                                            class="w-4/5 justify-center" :disabled="!isAuthenticated" />
                                         <UTooltip
                                             :text="!isAuthenticated ? 'برای افزودن به لیست علاقه مندی ها، وارد اکانت شوید.' : isInWishlist ? ' حذف از لیست علاقه مندی ها' : 'افزودن به لیست علاقه مندی ها'">
                                             <UButton
                                                 :icon="isInWishlist ? 'fluent:heart-16-filled' : 'fluent:heart-16-regular'"
-                                                size="xl" variant="soft" @click="toggleWishlist"
-                                                :disabled="!isAuthenticated" />
+                                                variant="ghost" @click="toggleWishlist" :disabled="!isAuthenticated" />
                                         </UTooltip>
                                     </div>
                                     <span class="block text-red-500" v-if="!isAuthenticated">برای خرید <NuxtLink
@@ -140,7 +136,7 @@
                                 </div>
                             </div>
                             <UButton disabled v-if="product?.status !== 'active'" label="ناموجود" color="rose"
-                                class="justify-center" size="xl" variant="solid" />
+                                class="justify-center" variant="solid" />
                         </div>
                     </div>
                     <div class="mt-10">
@@ -168,7 +164,7 @@
                     <UAlert :title="`محصول [ ${route.params.slug.replaceAll(' ', '-')} ] یافت نشد.`"
                         description="404 Not Found" color="primary" variant="outline"
                         icon="fluent:error-circle-16-regular" ,
-                        :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', size: 'xl', click: () => getRefreshProduct(), loading: refreshLoading }]" />
+                        :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', click: () => getRefreshProduct(), loading: refreshLoading }]" />
                 </div>
             </UContainer>
         </div>

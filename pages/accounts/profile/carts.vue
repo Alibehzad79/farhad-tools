@@ -18,9 +18,6 @@
                         <div class="mt-10 flex flex-col gap-5">
                             <UButton label="تکمیل اطلاعات" variant="outline" size="xl" icon="fluent:form-24-regular"
                                 block />
-                            <UAlert title="توجه"
-                                description="برای تغییر ثابت اطلاعات، میتونید از قسمت پروفایل اقدام کنید."
-                                variant="soft" color="orange" icon="fluent:warning-16-regular" />
                             <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
                                 <UFormGroup label="ایمیل" name="email" size="xl">
                                     <UInput v-model="state.email" disabled />

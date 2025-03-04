@@ -6,8 +6,7 @@
                 <div class="flex flex-col lg:flex-row gap-5">
                     <ProfileSide class="w-full lg:w-1/4" />
                     <div class="w-full lg:w-3/4 h-screen p-5 rounded">
-                        <div class="w-full grid grid-cols-2 md:grid-cols4 gap-5"
-                            v-if="wishlistStore.wishlist?.length > 0">
+                        <div class="w-full grid grid-cols-1 md:grid-cols-4" v-if="wishlistStore.wishlist?.length > 0">
                             <div v-for="wish in wishlist" :key="wish?.id">
                                 <ProductCard :data="wish?.product" />
                             </div>

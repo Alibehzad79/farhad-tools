@@ -1,54 +1,41 @@
 <template>
     <div>
-        <div class="">
-            <UCard class="shadow-none w-full flex flex-col justify-between h-[40rem]" :ui="{ divide: '' }">
-                <template #header>
-                    <div class="w-full">
-                        <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }">
-                            <img :src="data?.image" :alt="data?.title" :title="data?.title"
-                                class="w-full h-[20rem] rounded select-none  hover:scale-105 ease-in duration-100" loading="lazy"
-                                draggable="false">
-                        </NuxtLink>
+        <div
+            class="flex flex-col gap-3 w-full h-[25rem] hover:shadow-xl p-1 items-start lg:border lg:dark:border-gray-800">
+            <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }">
+                <img :src="data?.image" :alt="data?.title" :title="data?.title" class="w-96 h-[15rem] select-none"
+                    loading="lazy" draggable="false">
+            </NuxtLink>
+            <div class="flex flex-col justify-around gap-3 w-full h-full">
+                <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }"><strong
+                        class="text-sm lg:text-md select-none line-clamp-2 font-normal">{{
+                            data?.title
+                        }}</strong>
+                </NuxtLink>
+                <div class="flex justify-between w-full">
+                    <div v-if="data?.status === 'active'">
+                        <div v-if="data?.discount > 0" class="flex flex-col gap-2">
+                            <UChip :text="data?.discount + '%'" color="red" size="xl" position="top-left">
+                                <span>{{ toCurrencyString(data?.discount_price) + ' تومان' }}</span>
+                            </UChip>
+                            <span class="text-gray-500 text-xs line-through">{{ toCurrencyString(data?.price) }}
+                                تومان</span>
+                        </div>
+                        <span v-if="data?.discount <= 0">{{ toCurrencyString(data?.price) + ' تومان' }}</span>
                     </div>
-                </template>
-
-                <div class="flex flex-col justify-between gap-3">
-                    <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }"><strong
-                            class="text-lg select-none">{{
-                                data?.title
-                            }}</strong>
-                    </NuxtLink>
-                    <p class="text-gray-500 line-clamp-3 select-none">{{ data?.short_description }}</p>
+                    <UButton disabled v-if="data?.status !== 'active'" label="ناموجود" color="rose"
+                        class="justify-center" variant="solid" />
+                    <div class="flex gap-1 items-center">
+                        <UTooltip
+                            :text="!authStore.isAuthenticated ? 'برای افزودن به لیست علاقه مندی ها، وارد اکانت شوید.' : isInWishlist ? ' حذف از لیست علاقه مندی ها' : 'افزودن به لیست علاقه مندی ها'">
+                            <UButton :icon="isInWishlist ? 'fluent:heart-16-filled' : 'fluent:heart-16-regular'"
+                                @click="toggleWishlist" :disabled="!authStore.isAuthenticated" variant="ghost" />
+                        </UTooltip>
+                    </div>
                 </div>
-
-                <template #footer>
-                    <div class="flex justify-between items-start w-full">
-                        <div v-if="data?.status === 'active'">
-                            <div v-if="data?.discount > 0">
-                                <UChip :text="data?.discount + '%'" color="red" size="xl" position="top-left"
-                                    class="w-full">
-                                    <UButton :label="toCurrencyString(data?.discount_price) + ' تومان'"
-                                        class="w-full justify-center" size="lg" variant="soft" />
-                                </UChip>
-                                <span class="text-gray-500 text-sm line-through">{{ toCurrencyString(data?.price) }}
-                                    تومان</span>
-                            </div>
-                            <UButton v-if="data?.discount <= 0" :label="toCurrencyString(data?.price) + ' تومان'"
-                                class="justify-center" size="lg" variant="soft" />
-                        </div>
-                        <UButton disabled v-if="data?.status !== 'active'" label="ناموجود" color="rose"
-                            class="justify-center" size="lg" variant="solid" />
-                        <div class="flex gap-1 items-center">
-                            <UTooltip
-                                :text="!authStore.isAuthenticated ? 'برای افزودن به لیست علاقه مندی ها، وارد اکانت شوید.' : isInWishlist ? ' حذف از لیست علاقه مندی ها' : 'افزودن به لیست علاقه مندی ها'">
-                                <UButton :icon="isInWishlist ? 'fluent:heart-16-filled' : 'fluent:heart-16-regular'"
-                                    @click="toggleWishlist" :disabled="!authStore.isAuthenticated" size="lg" />
-                            </UTooltip>
-                        </div>
-                    </div>
-                </template>
-            </UCard>
+            </div>
         </div>
+        <UDivider class="lg:hidden" />
     </div>
 </template>
 

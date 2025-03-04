@@ -13,11 +13,11 @@
                 </div>
                 <div class="w-1/2 flex flex-col justify-around gap-5 h-full">
                   <div class="flex flex-col gap-3">
-                    <span class="font-bold text-xl">{{ item?.title }}</span>
-                    <p class="line-clamp-4">{{ item?.description }}</p>
+                    <span class="font-bold line-clamp-1 text-lg">{{ item?.title }}</span>
+                    <p class="line-clamp-4 text-gray-500">{{ item?.description }}</p>
                   </div>
                   <div>
-                    <UButton label="اطلاعات بیشتر" size="xl" class="justify-center w-full" variant="link" />
+                    <UButton label="اطلاعات بیشتر" class="justify-center w-full" variant="link" />
                   </div>
                 </div>
               </div>
@@ -30,7 +30,7 @@
         </div>
         <div v-if="categories_tags['categories']"
           class="flex flex-col items-center gap-5 w-full border border-gray-200 dark:border-gray-800 p-5 rounded-xl">
-          <h6 class="text-xl font-extrabold">جستوجو بر حسب دسته بندی</h6>
+          <h6 class="text-md lg:text-lg font-extrabold">جستوجو بر حسب دسته بندی</h6>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
             <CategoryBox v-for="item in categories_tags['categories']" :key="item.id" :name="item?.name"
               :slug="item?.slug" />

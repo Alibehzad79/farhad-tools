@@ -3,7 +3,7 @@
         <UContainer>
             <div class="mt-10 flex flex-col gap-10">
                 <UBreadcrumb :links="links" />
-                <div class="flex flex-col lg:flex-row gap-10">
+                <div class="flex flex-col lg:flex-row gap-1">
                     <div class="border dark:border-gray-600 w-1/4 p-3 rounded flex-col gap-5 lg:flex hidden h-screen"
                         v-if="categories_tags">
                         <div class="flex justify-between items-center">
@@ -45,22 +45,23 @@
                                         </div>
                                         <div class="flex flex-col gap-3">
                                             <span class="text-lg">دسته بندی ها</span>
-                                            <div class="flex flex-col gap-5">
+                                            <div class="grid grid-cols-1  md:grid-cols-4 gap-3">
                                                 <UButton label="همه محصولات" @click="getDoSearch(String(''))" size="xl"
                                                     class="w-full" icon="fluent:pin-16-regular" />
                                                 <UButton v-for="category in categories_tags['categories']"
                                                     @click="getDoSearch(String(category?.slug))" :key="category?.id"
-                                                    :label="category?.name" size="xl" class="w-full"
+                                                    :label="category?.name" size="xl" class="w-full justify-center"
                                                     icon="fluent:pin-16-regular" />
                                             </div>
                                         </div>
                                         <UDivider />
                                         <div class="flex flex-col gap-5">
                                             <span class="text-lg">برچسب ها</span>
-                                            <div class="flex flex-col gap-3">
+                                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                                                 <UButton v-for="tag in categories_tags['tags']" :key="tag?.id"
                                                     @click="getDoSearch(String(tag?.slug))" :label="tag?.name" size="xl"
-                                                    icon="fluent:tag-16-regular" variant="outline" />
+                                                    icon="fluent:tag-16-regular" variant="outline"
+                                                    class="justify-center" />
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +73,7 @@
                         </UPopover>
                     </div>
 
-                    <div class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-5" v-if="products.length > 0">
+                    <div class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-4 h-full" v-if="products.length > 0">
                         <ProductCard v-for="product in products" :data="product" />
                     </div>
                     <div class="w-full lg:w-3/4" v-if="products.length < 1">
@@ -113,7 +114,7 @@ const newProduct = ref(true)
 const productStore = useProductStore()
 await productStore.getAllProductList()
 await productStore.getCategoriesTags()
-const { products, categories_tags, pending } = storeToRefs(productStore)
+const { products, categories_tags } = storeToRefs(productStore)
 
 const { start, set, finish } = useLoadingIndicator()
 const refreshLoading = ref(false)
@@ -141,7 +142,7 @@ watch(newProduct, async (newValue, oldValue) => {
     if (!newValue) {
         query.value = "old"
     }
-    await productStore.getSearch(query)
+    await productStore.getSearch(query.value)
     finish()
 })
 
