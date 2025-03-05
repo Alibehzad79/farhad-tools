@@ -77,9 +77,9 @@
                         <ProductCard v-for="product in products" :data="product" />
                     </div>
                     <div class="w-full lg:w-3/4" v-if="products.length < 1">
-                        <UAlert title="محصولی یافت نشد." description="404 Not Found" color="primary" variant="outline"
+                        <UAlert title="محصولی یافت نشد." color="red" variant="soft"
                             icon="fluent:error-circle-16-regular"
-                            :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', size: 'xl', click: () => getRefreshAllProduct(), loading: refreshLoading }]" />
+                            :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', color: 'rose', click: () => getRefreshAllProduct(), loading: refreshLoading }]" />
                     </div>
                 </div>
             </div>
