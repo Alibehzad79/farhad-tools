@@ -2,7 +2,7 @@
   <div>
     <UContainer>
       <div class="mt-10 flex flex-col gap-10">
-        <div>
+        <div class="dark:border dark:border-gray-800 rounded-lg">
           <UCarousel :items="items" :ui="{ item: 'basis-full h-[15rem] lg:h-[25rem]' }"
             class="rounded-lg overflow-hidden shadow p-4" indicators arrows dir="rtl" ref="carouselRef">
             <template #default="{ item }">

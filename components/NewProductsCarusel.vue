@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex flex-col border border-gray-200 dark:border-gray-800 rounded-xl" v-if="newProducts.length > 0">
-            <div class="p-4 rounded-xl rounded-b-none bg-primary text-white flex justify-between items-center">
+            <div class="p-3 rounded-xl rounded-b-none bg-primary text-white flex justify-between items-center">
                 <strong>جدید ترین محصولات</strong>
                 <UButton label="دیدن همه" variant="link" :to="{ name: 'search', query: { query: 'new' } }" color="white"
                     trailing-icon="fluent:arrow-circle-left-16-regular" />

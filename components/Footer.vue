@@ -4,16 +4,16 @@
             <UDivider>
                 <div class="grid grid-cols-4 gap-10 mx-5 justify-items-center">
                     <NuxtLink to="#">
-                        <Icon name="bxl:instagram" size="30" />
+                        <Icon name="bxl:instagram" size="20" />
                     </NuxtLink>
                     <NuxtLink to="#">
-                        <Icon name="bxl:telegram" size="30" />
+                        <Icon name="bxl:telegram" size="20" />
                     </NuxtLink>
                     <NuxtLink to="#">
-                        <Icon name="bxl:facebook" size="30" />
+                        <Icon name="bxl:facebook" size="20" />
                     </NuxtLink>
                     <NuxtLink to="#">
-                        <Icon name="bxl:whatsapp" size="30" />
+                        <Icon name="bxl:whatsapp" size="20" />
                     </NuxtLink>
                 </div>
             </UDivider>
