@@ -2,7 +2,7 @@
     <div>
         <UContainer>
             <div class="mt-10 flex justify-center items-center flex-col gap-10 w-full">
-                <h1 class="text-xl lg:text-3xl font-bold">ثبت نام در سایت</h1>
+                <h1 class="text-xl font-bold">ثبت نام در سایت</h1>
                 <UForm :schema="schema" :state="state" class="space-y-4 w-full lg:w-1/2" @submit="onSubmit"
                     method="post">
                     <UFormGroup label="نام" name="first_name">

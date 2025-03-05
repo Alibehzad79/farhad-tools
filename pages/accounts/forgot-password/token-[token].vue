@@ -2,14 +2,14 @@
     <div>
         <UContainer>
             <div class="mt-10 flex justify-center items-center flex-col gap-10 w-full">
-                <h1 class="text-xl lg:text-3xl font-bold">تغییر رمز عبور</h1>
+                <h1 class="text-xl font-bold">تغییر رمز عبور</h1>
                 <UForm :schema="schema" :state="state" class="space-y-4 w-full lg:w-1/2" @submit="onSubmit"
                     method="post">
-                    <UFormGroup label="رمز عبور" name="password" size="xl">
+                    <UFormGroup label="رمز عبور" name="password">
                         <UInput v-model="state.password" :type="showPassword ? 'text' : 'password'" placeholder="******"
                             required />
                     </UFormGroup>
-                    <UFormGroup label="تایید رمز عبور" name="confirmPassword" size="xl">
+                    <UFormGroup label="تایید رمز عبور" name="confirmPassword">
                         <UInput v-model="state.confirmPassword" :type="showPassword ? 'text' : 'password'"
                             placeholder="******" required />
                     </UFormGroup>
@@ -20,7 +20,7 @@
                         <UCheckbox label="نمایش رمز عبور" v-model="showPassword" />
                     </div>
                     <UButton :disabled="state.password !== state.confirmPassword" type="submit"
-                        class="w-full justify-center" size="xl" :loading="btnLoading">
+                        class="w-full justify-center" :loading="btnLoading">
                         تغییر
                     </UButton>
                 </UForm>

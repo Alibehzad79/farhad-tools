@@ -2,7 +2,7 @@
   <div>
     <UContainer>
       <div class="mt-10 flex justify-center items-center flex-col gap-10 w-full">
-        <h1 class="text-xl lg:text-3xl font-bold">ورود به سایت</h1>
+        <h1 class="text-xl font-bold">ورود به سایت</h1>
         <UForm :schema="schema" :state="state" class="space-y-4 w-full lg:w-1/2" @submit="onSubmit" method="post">
           <UFormGroup label="ایمیل" name="email">
             <UInput v-model="state.email" placeholder="Example@mail.com" required />
@@ -13,7 +13,7 @@
           </UFormGroup>
           <div class="flex justify-between">
             <UCheckbox label="نمایش رمز عبور" v-model="showPassword" />
-            <NuxtLink to="/accounts/forgot-password" class="text-blue-500">فراموشی رمز عبور</NuxtLink>
+            <NuxtLink to="/accounts/forgot-password" class="text-blue-500 text-md">فراموشی رمز عبور</NuxtLink>
           </div>
           <UButton type="submit" class="w-full justify-center" :loading="btnLoading">
             ورود

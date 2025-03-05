@@ -2,12 +2,12 @@
   <div>
     <UContainer>
       <div class="flex flex-col gap-10 justify-center items-center mt-10">
-        <h1 class="text-3xl font-bold">بازیابی رمز عبور</h1>
+        <h1 class="text-xl font-bold">بازیابی رمز عبور</h1>
         <UForm :schema="schema" :state="state" class="space-y-4 w-full lg:w-1/2" @submit="onSubmit" method="post">
-          <UFormGroup label="ایمیل" name="email" size="xl">
+          <UFormGroup label="ایمیل" name="email">
             <UInput v-model="state.email" placeholder="Example@mail.com" required />
           </UFormGroup>
-          <UButton type="submit" class="w-full justify-center" size="xl" :loading="btnLoading">
+          <UButton type="submit" class="w-full justify-center" :loading="btnLoading">
             ارسال
           </UButton>
         </UForm>
