@@ -73,7 +73,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     if (resulte === "success") {
         await authStore.getLogout()
         toast.add({
-            title: "رمز عبور با موفقیت تغییر یافت.", description: "درحال تغییر صفحه...", color: "green", id: 'success_register', icon: "fluent:checkmark-circle-16-regular", callback: () => { navigateTo({ name: "login" }) }, timeout: 3000,
+            title: "رمز عبور با موفقیت تغییر یافت.", color: "green", id: 'success_register', icon: "fluent:checkmark-circle-16-regular", callback: () => { navigateTo({ name: "login" }) }, timeout: 3000,
         })
     } else {
         toast.add({

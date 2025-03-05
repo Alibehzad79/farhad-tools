@@ -5,21 +5,21 @@
                 <h1 class="text-xl lg:text-3xl font-bold">ثبت نام در سایت</h1>
                 <UForm :schema="schema" :state="state" class="space-y-4 w-full lg:w-1/2" @submit="onSubmit"
                     method="post">
-                    <UFormGroup label="نام" name="first_name" size="xl">
+                    <UFormGroup label="نام" name="first_name">
                         <UInput v-model="state.first_name" placeholder="علی" required />
                     </UFormGroup>
-                    <UFormGroup label="نام خانوادگی" name="last_name" size="xl">
+                    <UFormGroup label="نام خانوادگی" name="last_name">
                         <UInput v-model="state.last_name" placeholder="شریعتی" required />
                     </UFormGroup>
-                    <UFormGroup label="ایمیل" name="email" size="xl">
+                    <UFormGroup label="ایمیل" name="email">
                         <UInput v-model="state.email" placeholder="Example@mail.com" required />
                     </UFormGroup>
 
-                    <UFormGroup label="رمز عبور" name="password" size="xl">
+                    <UFormGroup label="رمز عبور" name="password">
                         <UInput v-model="state.password" :type="showPassword ? 'text' : 'password'" placeholder="******"
                             required />
                     </UFormGroup>
-                    <UFormGroup label="تایید رمز عبور" name="confirmPassword" size="xl">
+                    <UFormGroup label="تایید رمز عبور" name="confirmPassword">
                         <UInput v-model="state.confirmPassword" :type="showPassword ? 'text' : 'password'"
                             placeholder="******" required />
                     </UFormGroup>
@@ -30,7 +30,7 @@
                         <UCheckbox label="نمایش رمز عبور" v-model="showPassword" />
                     </div>
                     <UButton :disabled="state.password !== state.confirmPassword" type="submit"
-                        class="w-full justify-center" size="xl" :loading="btnLoading">
+                        class="w-full justify-center" :loading="btnLoading">
                         ورود
                     </UButton>
                 </UForm>
@@ -85,7 +85,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     const resulte = await authStore.getRegister(rest)
     if (resulte === "success") {
         toast.add({
-            title: "ثبت نام موفق", description: "درحال تغییر صفحه...", color: "green", id: 'success_register', icon: "fluent:checkmark-circle-16-regular", callback: () => { navigateTo({ name: "login" }) }, timeout: 3000,
+            title: "ثبت نام موفق", color: "green", id: 'success_register', icon: "fluent:checkmark-circle-16-regular", callback: () => { navigateTo({ name: "login" }) }, timeout: 3000,
         })
     } else {
         toast.add({

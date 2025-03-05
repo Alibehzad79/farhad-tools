@@ -3,15 +3,15 @@ export default defineAppConfig({
         primary: 'indigo',
         gray: 'cool',
         horizontalNavigation: {
-            label: 'text-lg'
+            label: 'text-md'
         },
         verticalNavigation: {
-            label: 'text-md lg:text-lg'
+            label: 'text-md'
         },
         button: {
             rounded: 'rounded-xl',
             default: {
-                size: "lg"
+                size: "md"
             }
         },
         chip: {
@@ -20,5 +20,12 @@ export default defineAppConfig({
             },
         },
         badge: {},
+        input: {
+            default: {
+                size: 'md'
+            }
+        },
+        
+        
     },
 })

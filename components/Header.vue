@@ -22,8 +22,7 @@
               <UDropdown :items="items" :popper="{ placement: 'bottom-start' }" dir="rtl">
                 <UButton variant="soft" :label="`${user?.first_name} ${user?.last_name}`"
                   trailing-icon="i-heroicons-chevron-down-20-solid" v-if="user" />
-                <UButton variant="soft" label="حساب کاربری" trailing-icon="i-heroicons-chevron-down-20-solid"
-                  v-else />
+                <UButton variant="soft" label="حساب کاربری" trailing-icon="i-heroicons-chevron-down-20-solid" v-else />
               </UDropdown>
             </div>
           </div>

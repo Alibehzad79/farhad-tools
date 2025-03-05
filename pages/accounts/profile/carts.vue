@@ -16,28 +16,27 @@
                                 icon="fluent:money-16-regular" />
                         </div>
                         <div class="mt-10 flex flex-col gap-5">
-                            <UButton label="تکمیل اطلاعات" variant="outline" size="xl" icon="fluent:form-24-regular"
-                                block />
+                            <UButton label="تکمیل اطلاعات" variant="outline" icon="fluent:form-24-regular" block />
                             <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-                                <UFormGroup label="ایمیل" name="email" size="xl">
+                                <UFormGroup label="ایمیل" name="email">
                                     <UInput v-model="state.email" disabled />
                                 </UFormGroup>
                                 <div class="flex flex-col lg:flex-row justify-between gap-3">
-                                    <UFormGroup label="نام" name="first_name" size="xl" class="w-full lg:w-96">
+                                    <UFormGroup label="نام" name="first_name" class="w-full lg:w-96">
                                         <UInput v-model="state.first_name" />
                                     </UFormGroup>
-                                    <UFormGroup label="نام خانوادگی" name="last_name" size="xl" class="w-full lg:w-96">
+                                    <UFormGroup label="نام خانوادگی" name="last_name" class="w-full lg:w-96">
                                         <UInput v-model="state.last_name" />
                                     </UFormGroup>
                                 </div>
 
-                                <UFormGroup label="شماره تلفن" name="phone_number" size="xl">
+                                <UFormGroup label="شماره تلفن" name="phone_number">
                                     <UInput v-model="state.phone_number" />
                                 </UFormGroup>
-                                <UFormGroup label="آدرس" name="address" size="xl">
+                                <UFormGroup label="آدرس" name="address">
                                     <UTextarea v-model="state.address" />
                                 </UFormGroup>
-                                <UButton v-if="carts?.amount" label="پرداخت" type="submit" size="xl"
+                                <UButton v-if="carts?.amount" label="پرداخت" type="submit"
                                     class="justify-center w-full lg:w-1/4"
                                     :disabled="cartStore.carts?.carts.length < 1" />
                             </UForm>
@@ -50,15 +49,8 @@
                     </div>
                     <div v-if="cartStore.carts?.carts.length < 1" class="w-full lg:w-3/4">
                         <UAlert title="سبد خرید خالی است." variant="soft" color="primary"
-                            icon="fluent:error-circle-16-regular">
-                            <template #description>
-                                <div>
-                                    <NuxtLink :to="{ name: 'products' }">
-                                        <UButton label="رفتن به فروشگاه" />
-                                    </NuxtLink>
-                                </div>
-                            </template>
-                        </UAlert>
+                            icon="fluent:error-circle-16-regular"
+                            :actions="[{ label: 'رفتن به فروشگاه', variant: 'link', to: { name: 'products' } }]" />
                     </div>
                 </div>
             </UContainer>

@@ -22,32 +22,31 @@
                     </div>
                     <div class="flex flex-col lg:flex-row gap-2">
                         <span>وضعیت پرداخت: </span>
-                        <UBadge v-if="order?.pay_status === 'paid'" color="green" class="justify-center" size="lg">
+                        <UBadge v-if="order?.pay_status === 'paid'" color="green" class="justify-center">
                             پرداخت
                             شده
                         </UBadge>
-                        <UBadge v-else-if="order?.pay_status === 'not_paid'" color="orange" class="justify-center"
-                            size="lg">
+                        <UBadge v-else-if="order?.pay_status === 'not_paid'" color="orange" class="justify-center">
                             نامشخص
                         </UBadge>
-                        <UBadge v-else color="red" class="justify-center" size="lg">لغو شده</UBadge>
+                        <UBadge v-else color="red" class="justify-center">لغو شده</UBadge>
                     </div>
                     <div class="flex flex-col lg:flex-row gap-2">
                         <span>وضعیت سفارش: </span>
-                        <UBadge v-if="order?.status === 'done'" color="green" class="justify-center" size="lg">انجام شده
+                        <UBadge v-if="order?.status === 'done'" color="green" class="justify-center">انجام شده
                         </UBadge>
-                        <UBadge v-else-if="order?.status === 'pending'" color="orange" class="justify-center" size="lg">
+                        <UBadge v-else-if="order?.status === 'pending'" color="orange" class="justify-center">
                             درحال
                             انجام</UBadge>
-                        <UBadge v-else-if="order?.status === 'none'" color="rose" class="justify-center" size="lg">
+                        <UBadge v-else-if="order?.status === 'none'" color="rose" class="justify-center">
                             نامشخص
                         </UBadge>
-                        <UBadge v-else color="red" class="justify-center" size="lg">لغو شده</UBadge>
+                        <UBadge v-else color="red" class="justify-center">لغو شده</UBadge>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-5 mt-10">
-                    <h6 class="text-xl font-bold">محصولات سفارش داده شده</h6>
+                    <h6 class="text-lg font-bold">محصولات سفارش داده شده</h6>
                     <div v-for="item in order?.orderitems"
                         class="border border-gray-100 dark:border-gray-800 p-5 rounded-xl">
                         <div class="flex flex-col gap-3 lg:flex-row justify-between lg:items-center">
@@ -55,7 +54,7 @@
                                 <img :src="item?.product?.image" :alt="item?.product?.title"
                                     :title="item?.product?.title"
                                     class="w-full lg:w-[5rem] h-[15rem] lg:h-[5rem] rounded-xl select-none no-print">
-                                <NuxtLink class="text-blue-500 text-xl lg:text-lg"
+                                <NuxtLink class="text-blue-500 text-md"
                                     :to="{ name: 'products-slug', params: { slug: item?.product?.slug } }">{{
                                         item?.product?.title }}</NuxtLink>
                             </div>
@@ -66,11 +65,11 @@
                 </div>
 
                 <div class="flex flex-col gap-5 mt-10">
-                    <h6 class="text-xl font-bold">اطلاعات کاربر</h6>
+                    <h6 class="text-lg font-bold">اطلاعات کاربر</h6>
                     <div class="border border-gray-100 dark:border-gray-800 p-5 rounded-xl"
                         v-html="order?.user_info?.replaceAll('\n', '<br />')"></div>
                 </div>
-                <UButton @click="printDiv('printable')" label="دانلود فاکتور" size="xl"
+                <UButton @click="printDiv('printable')" label="دانلود فاکتور"
                     class="w-full lg:w-1/4 justify-center no-print" />
             </div>
             <div v-if="error" class="mt-10 no-print">

@@ -15,7 +15,7 @@
                 <div class="w-full sm:w-auto flex items-center gap-2">
                     <UButton variant="ghost" label="+" @click="increment"
                         :disabled="quntityValue >= data?.product?.count" />
-                    <UInput type="number" v-model="quntityValue" disabled size="lg" :min="minValue"
+                    <UInput type="number" v-model="quntityValue" disabled :min="minValue"
                         :max="data?.product?.count" class="w-full sm:w-auto">
                     </UInput>
                     <UButton variant="ghost" label="-" @click="decrement" v-if="quntityValue > 1" />

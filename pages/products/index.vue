@@ -13,11 +13,11 @@
                         <div class="flex flex-col gap-3">
                             <span class="text-lg">دسته بندی ها</span>
                             <div class="flex flex-col gap-5">
-                                <UButton label="همه محصولات" @click="getDoSearch(String(''))" size="xl" class="w-full"
+                                <UButton label="همه محصولات" @click="getDoSearch(String(''))" class="w-full"
                                     icon="fluent:pin-16-regular" />
                                 <UButton @click="getDoSearch(String(category?.slug))"
                                     v-for="category in categories_tags['categories']" :key="category?.id"
-                                    :label="category?.name" size="xl" class="w-full" icon="fluent:pin-16-regular" />
+                                    :label="category?.name" class="w-full" icon="fluent:pin-16-regular" />
                             </div>
                         </div>
                         <UDivider />
@@ -25,7 +25,7 @@
                             <span class="text-lg">برچسب ها</span>
                             <div class="flex flex-wrap gap-3">
                                 <UButton v-for="tag in categories_tags['tags']" :key="tag?.id"
-                                    @click="getDoSearch(String(tag?.slug))" :label="tag?.name" size="xl"
+                                    @click="getDoSearch(String(tag?.slug))" :label="tag?.name"
                                     icon="fluent:tag-16-regular" variant="outline" />
                             </div>
                         </div>
@@ -46,11 +46,11 @@
                                         <div class="flex flex-col gap-3">
                                             <span class="text-lg">دسته بندی ها</span>
                                             <div class="grid grid-cols-1  md:grid-cols-4 gap-3">
-                                                <UButton label="همه محصولات" @click="getDoSearch(String(''))" size="xl"
+                                                <UButton label="همه محصولات" @click="getDoSearch(String(''))"
                                                     class="w-full" icon="fluent:pin-16-regular" />
                                                 <UButton v-for="category in categories_tags['categories']"
                                                     @click="getDoSearch(String(category?.slug))" :key="category?.id"
-                                                    :label="category?.name" size="xl" class="w-full justify-center"
+                                                    :label="category?.name" class="w-full justify-center"
                                                     icon="fluent:pin-16-regular" />
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                                             <span class="text-lg">برچسب ها</span>
                                             <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                                                 <UButton v-for="tag in categories_tags['tags']" :key="tag?.id"
-                                                    @click="getDoSearch(String(tag?.slug))" :label="tag?.name" size="xl"
+                                                    @click="getDoSearch(String(tag?.slug))" :label="tag?.name"
                                                     icon="fluent:tag-16-regular" variant="outline"
                                                     class="justify-center" />
                                             </div>
