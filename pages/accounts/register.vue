@@ -29,9 +29,9 @@
                     <div class="flex justify-between">
                         <UCheckbox label="نمایش رمز عبور" v-model="showPassword" />
                     </div>
-                    <UButton :disabled="state.password !== state.confirmPassword" type="submit"
+                    <UButton type="submit"
                         class="w-full justify-center" :loading="btnLoading">
-                        ورود
+                        ثبت نام
                     </UButton>
                 </UForm>
             </div>
