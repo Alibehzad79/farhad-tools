@@ -37,8 +37,8 @@
                                     <UTextarea v-model="state.address" />
                                 </UFormGroup>
                                 <UButton v-if="carts?.amount" label="پرداخت" type="submit"
-                                    class="justify-center w-full lg:w-1/4"
-                                    :disabled="cartStore.carts?.carts.length < 1" />
+                                    class="justify-center w-full lg:w-1/4" :disabled="cartStore.carts?.carts.length < 1"
+                                    :loading="btnLoading" />
                             </UForm>
                             <UAlert v-if="error" title="خطا" :description="error" variant="outline" color="red"
                                 icon="fluent:warning-16-regular" />
@@ -115,12 +115,14 @@ const state = reactive({
     address: user?.value?.address || undefined,
     phone_number: user?.value?.phone_number || undefined,
 })
-
+const btnLoading = ref(false)
 async function onSubmit(event: FormSubmitEvent<Schema>) {
+    btnLoading.value = true
     const data = {
         "user_info": event.data
     }
     await orderStore.getCreateOrder(data)
+    btnLoading.value = false
 
 }
 

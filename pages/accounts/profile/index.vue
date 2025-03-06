@@ -25,7 +25,7 @@
                             <UTextarea v-model="state.address" />
                         </UFormGroup>
 
-                        <UButton type="submit" class="w-full lg:w-1/4 justify-center">
+                        <UButton type="submit" class="w-full lg:w-1/4 justify-center" :loading="btnLoading">
                             ذخیره
                         </UButton>
                     </UForm>
@@ -69,7 +69,10 @@ const state = reactive({
 
 const toast = useToast()
 
+const btnLoading = ref(false)
+
 async function onSubmit(event: FormSubmitEvent<Schema>) {
+    btnLoading.value = true
     const { email, ...data } = event.data
     const result = await authStore.getEditUserDetail(data)
     if (result === "success") {
@@ -88,6 +91,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             timeout: 2000,
         })
     }
+    btnLoading.value = false
 }
 
 definePageMeta({

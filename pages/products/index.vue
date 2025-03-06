@@ -79,7 +79,7 @@
                     <div class="w-full lg:w-3/4" v-if="products.length < 1">
                         <UAlert title="محصولی یافت نشد." color="red" variant="soft"
                             icon="fluent:error-circle-16-regular"
-                            :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', color: 'rose', click: () => getRefreshAllProduct(), loading: refreshLoading }]" />
+                            :actions="[{ label: 'بارگذاری مجدد', variant: 'solid', color: 'rose', click: () => getRefreshAllProduct(), loading: refreshLoading }]" />
                     </div>
                 </div>
             </div>

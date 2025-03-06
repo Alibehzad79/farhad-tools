@@ -11,8 +11,10 @@ export default defineAppConfig({
         button: {
             rounded: 'rounded-xl',
             default: {
-                size: "md"
-            }
+                size: "md",
+                loadingIcon: 'svg-spinners:90-ring-with-bg'
+            },
+
         },
         chip: {
             default: {
@@ -25,7 +27,7 @@ export default defineAppConfig({
                 size: 'md'
             }
         },
-        
-        
+
+
     },
 })
