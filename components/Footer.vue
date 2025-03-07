@@ -25,12 +25,12 @@
                         چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
                         مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
                     </p>
-                    <UButton label="09111111111" icon="fluent:call-16-regular" variant="ghost" class="justify-center" />
-                    <UButton label="09111111111" icon="fluent:call-16-regular" variant="ghost" class="justify-center" />
-                    <UButton label="test@mail.com" icon="fluent:mail-16-regular" variant="ghost"
-                        class="justify-center" />
-                    <UButton label="test@mail.com" icon="fluent:mail-16-regular" variant="ghost"
-                        class="justify-center" />
+                    <div class="flex flex-col gap-2" v-if="data">
+                        <UButton v-for="info in data['phones']" :label="info?.number"
+                            icon="fluent:call-16-regular" variant="ghost" class="justify-center" />
+                        <UButton v-for="info in data['emails']" :label="info?.email"
+                            icon="fluent:call-16-regular" variant="ghost" class="justify-center" />
+                    </div>
                 </div>
                 <div class="flex flex-col gap-5 w-full lg:w-1/2">
                     <h6 class="text-lg font-bold">لینک های داخلی</h6>
@@ -61,6 +61,19 @@ const links = [{
     icon: 'fluent:call-16-regular',
     to: { name: 'contact' },
 }]
+
+const data = ref(
+    {
+        'phones': [
+            { 'number': '09111111111' },
+            { 'number': '09111111111' },
+        ],
+        'emails': [
+            { 'email': 'test@mail.com' },
+            { 'email': 'test@mail.com' },
+        ],
+    }
+)
 
 </script>
 

@@ -22,7 +22,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
   css: ['~/assets/css/main.css'],
   modules: ['@nuxt/ui', '@pinia/nuxt', '@vueuse/nuxt', "nuxt-time",],
   runtimeConfig: {
@@ -31,5 +30,5 @@ export default defineNuxtConfig({
     public: {
       backend_url: process.env.NUXT_BACKAEND_URL,
     }
-  }
+  },
 })

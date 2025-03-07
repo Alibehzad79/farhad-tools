@@ -15,17 +15,17 @@
                 <div class="w-full sm:w-auto flex items-center gap-2">
                     <UButton variant="ghost" label="+" @click="increment"
                         :disabled="quntityValue >= data?.product?.count" />
-                    <UInput type="number" v-model="quntityValue" disabled :min="minValue"
-                        :max="data?.product?.count" class="w-full sm:w-auto">
+                    <UInput type="number" v-model="quntityValue" disabled :min="minValue" :max="data?.product?.count"
+                        class="w-full sm:w-auto">
                     </UInput>
                     <UButton variant="ghost" label="-" @click="decrement" v-if="quntityValue > 1" />
                     <UButton variant="ghost" icon="fluent:delete-16-regular" v-if="quntityValue <= 1" color="red"
                         @click="deleteCart" />
                 </div>
             </div>
-            <div class="absolute w-full bg-gray-100 opacity-40 h-full rounded-xl right-0 flex justify-center items-center"
+            <div class="absolute w-full bg-gray-500 opacity-80 h-full rounded-xl right-0 flex justify-center items-center"
                 v-if="editLoading">
-                <Icon name="fluent:arrow-sync-16-regular" size="20" class="animate-spin" />
+                <Icon name="svg-spinners:90-ring-with-bg" size="20" />
             </div>
         </div>
     </div>

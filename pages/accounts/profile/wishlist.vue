@@ -7,8 +7,10 @@
                     <ProfileSide class="w-full lg:w-1/4" />
                     <div class="w-full lg:w-3/4 h-screen p-5 rounded">
                         <div class="w-full grid grid-cols-1 md:grid-cols-4" v-if="wishlistStore.wishlist?.length > 0">
-                            <div v-for="wish in wishlist" :key="wish?.id">
+                            <div v-for="wish in wishlist" :key="wish?.id" class="relative">
                                 <ProductCard :data="wish?.product" />
+                                <UButton class="absolute left-1 -top-3" icon="fluent:delete-16-regular" color="rose"
+                                    variant="soft" @click="toggleWishlist(wish?.product)" />
                             </div>
                         </div>
                         <div v-if="wishlistStore.wishlist?.length < 1">
@@ -47,6 +49,19 @@ const links = [{
     label: 'علاقه مندی ها',
     icon: 'fluent:person-heart-20-regular'
 },]
+
+const toggleWishlist = async (product) => {
+    const data = {
+        "product_slug": product?.slug
+    }
+    const resulte = await wishlistStore.toggleWishlist(data)
+    if (resulte === "success") {
+        isInWishlist.value = true
+    } else {
+        isInWishlist.value = false
+    }
+}
+
 </script>
 
 <style></style>
