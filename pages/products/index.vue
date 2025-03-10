@@ -13,7 +13,7 @@
                         <div class="flex flex-col gap-3">
                             <span class="text-lg">دسته بندی ها</span>
                             <div class="flex flex-col gap-5">
-                                <UButton label="همه محصولات" @click="getDoSearch(String(''))" class="w-full"
+                                <UButton label="همه محصولات" @click="getDoSearch(String(''))" class="w-full justify-center"
                                     icon="fluent:pin-16-regular" />
                                 <UButton @click="getDoSearch(String(category?.slug))"
                                     v-for="category in categories_tags['categories']" :key="category?.id"
@@ -47,7 +47,7 @@
                                             <span class="text-lg">دسته بندی ها</span>
                                             <div class="grid grid-cols-1  md:grid-cols-4 gap-3">
                                                 <UButton label="همه محصولات" @click="getDoSearch(String(''))"
-                                                    class="w-full" icon="fluent:pin-16-regular" />
+                                                    class="w-full justify-center" icon="fluent:pin-16-regular" />
                                                 <UButton v-for="category in categories_tags['categories']"
                                                     @click="getDoSearch(String(category?.slug))" :key="category?.id"
                                                     :label="category?.name" class="w-full justify-center"
@@ -72,7 +72,6 @@
                             </template>
                         </UPopover>
                     </div>
-
                     <div class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-4 h-full" v-if="products.length > 0">
                         <ProductCard v-for="product in products" :data="product" />
                     </div>

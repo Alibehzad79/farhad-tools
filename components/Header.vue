@@ -221,7 +221,6 @@ const items = [
     icon: 'fluent:arrow-exit-20-regular',
     click: () => { getLogout() },
     iconClass: 'bg-red-500',
-    labelClass: 'text-red-500',
   }]
 ]
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex flex-col gap-3 w-full h-[25rem] hover:shadow-xl p-1 items-start lg:border lg:dark:border-gray-800 cursor-pointer"
+        <div class="flex flex-col gap-3 w-full h-[25rem] hover:shadow-xl p-1 items-start border dark:border-gray-800 cursor-pointer"
             @click="navigateTo({ name: 'products-slug', params: { slug: data?.slug } })">
             <NuxtLink :to="{ name: 'products-slug', params: { slug: data?.slug } }">
                 <img :src="data?.image" :alt="data?.title" :title="data?.title" class="w-96 h-[15rem] select-none"
