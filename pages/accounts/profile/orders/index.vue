@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <UContainer class="mt-10 flex flex-col gap-10">
+            <UContainer class="my-10 flex flex-col gap-10">
                 <UBreadcrumb :links="links" />
                 <div class="flex flex-col lg:flex-row gap-5">
                     <ProfileSide class="w-full lg:w-1/4" />

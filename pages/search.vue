@@ -9,7 +9,7 @@
             </div>
             <div v-if="products.length < 1">
                 <UAlert title="محصولی یافت نشد." color="red" variant="soft" icon="fluent:error-circle-16-regular"
-                    :description="`محصولی با اطلاعات  '${query}' یافت نشد.`" />
+                    :description="`محصولی با اطلاعات  '${String(route.query.query)}' یافت نشد.`" />
             </div>
         </UContainer>
     </div>
@@ -20,19 +20,20 @@ import { storeToRefs } from "pinia"
 import { useProductStore } from "~/stores/product"
 
 const route = useRoute()
-const query = route.query.query
 const productStore = useProductStore()
 
 const { products } = storeToRefs(productStore)
 
-await productStore.getSearch(query)
+await productStore.getSearch(String(route.query.query))
+
+const { start, set, finish } = useLoadingIndicator()
 
 definePageMeta({
     name: "search"
 })
 
 useSeoMeta({
-    title: "جستوجوی" + `'${query}'`
+    title: "جستوجوی" + `'${String(route.query.query)}'`
 })
 
 const links = [{
@@ -47,6 +48,14 @@ const links = [{
     label: `${products?.value?.length ?? 0} محصول یافت شد.`,
     icon: 'fluent:text-word-count-20-regular'
 }]
+
+watch(route, async (newValue, oldValue) => {
+    if (newValue) {
+        start()
+        await productStore.getSearch(String(newValue.query.query))
+        finish()
+    }
+})
 
 </script>
 

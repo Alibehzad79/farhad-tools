@@ -4,7 +4,7 @@
       <UAlert title="اعلان ها" class="text-center" color="red" variant="soft" />
       <div class="mt-5 hidden lg:flex flex-row items-center justify-between">
         <div>
-          <h1 class="text-3xl">فرهاد ابزار</h1>
+          <h1 class="text-3xl">{{ settings?.site_name }}</h1>
         </div>
         <div>
           <UHorizontalNavigation :links="links" class="border-b border-gray-200 dark:border-gray-800" />
@@ -34,7 +34,7 @@
           <UButton
             :icon="colorMode.value === 'dark' ? 'fluent:weather-sunny-16-regular' : 'fluent:weather-moon-16-regular'"
             variant="ghost" @click="changeColorMode" />
-          <UPopover mode="hover">
+          <UPopover>
             <UButton icon="fluent:color-16-regular" variant="ghost" />
 
             <template #panel>
@@ -50,7 +50,7 @@
       </div>
       <div class="lg:hidden mt-5 flex justify-between">
         <div>
-          <h1 class="text-2xl">فرهاد ابزار</h1>
+          <h1 class="text-xl">{{ settings?.site_name }}</h1>
         </div>
         <div class="flex items-center gap-3">
           <UButton icon="fluent:line-horizontal-3-16-regular" @click="isOpen = !isOpen" />
@@ -61,7 +61,7 @@
           <UButton
             :icon="colorMode.value === 'dark' ? 'fluent:weather-sunny-16-regular' : 'fluent:weather-moon-16-regular'"
             variant="ghost" @click="changeColorMode" />
-          <UPopover mode="click">
+          <UPopover>
             <UButton icon="fluent:color-16-regular" variant="ghost" />
 
             <template #panel>
@@ -124,8 +124,7 @@
 
           <div class="w-full flex items-center gap-3">
             <UInput v-model="searchValue" placeholder="نام محصول و ..." variant="outline" class="w-full" autofocus />
-            <UButton label="جستوجو" :to="{ name: 'search', query: { 'query': searchValue } }" target="_parent"
-              @click="isOpenSearchModal = false" />
+            <UButton label="جستوجو" @click="getSearch" />
           </div>
         </UCard>
       </UModal>
@@ -137,6 +136,7 @@
 <script lang="ts" setup>
 import { useAuthStore } from '~/stores/auth'
 import { useCartStore } from '~/stores/carts'
+import { useSettingsStore } from '~/stores/settings'
 import { storeToRefs } from 'pinia'
 const authStore = useAuthStore()
 const cartStore = useCartStore()
@@ -145,6 +145,12 @@ await cartStore.getUserCarts()
 const { carts } = storeToRefs(cartStore)
 
 const { isAuthenticated, user } = storeToRefs(authStore)
+
+
+const settingsStore = useSettingsStore()
+await settingsStore.getSettings()
+const { settings } = storeToRefs(settingsStore)
+
 
 const appConfig = useAppConfig();
 const changeUiColor = (color: string) => {
@@ -223,6 +229,13 @@ const items = [
     iconClass: 'bg-red-500',
   }]
 ]
+const { start, set, finish } = useLoadingIndicator()
+const getSearch = async () => {
+  isOpenSearchModal.value = false
+  start()
+  navigateTo({ name: 'search', query: { 'query': searchValue.value } })
+  finish()
+}
 
 </script>
 

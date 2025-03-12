@@ -1,35 +1,22 @@
 <template>
-    <div class="no-print">
-        <UContainer class="my-10 ">
-            <UDivider>
-                <div class="grid grid-cols-4 gap-10 mx-5 justify-items-center">
-                    <NuxtLink to="#">
-                        <Icon name="bxl:instagram" size="20" />
-                    </NuxtLink>
-                    <NuxtLink to="#">
-                        <Icon name="bxl:telegram" size="20" />
-                    </NuxtLink>
-                    <NuxtLink to="#">
-                        <Icon name="bxl:facebook" size="20" />
-                    </NuxtLink>
-                    <NuxtLink to="#">
-                        <Icon name="bxl:whatsapp" size="20" />
+    <div class="no-print my-10">
+        <UContainer>
+            <UDivider v-if="settings?.socials?.length > 0">
+                <div class="flex items-center gap-5 overflow-hidden justify-center">
+                    <NuxtLink :to="social.link" target="_blank" v-for="social in settings?.socials">
+                        <Icon :name="'bxl:' + social.name" size="20" />
                     </NuxtLink>
                 </div>
             </UDivider>
             <div class="flex flex-col lg:flex-row justify-between gap-10 text-center mt-10">
-                <div class="flex flex-col gap-5 w-full lg:w-1/2">
-                    <h2 class="text-lg font-bold">فرهاد ابزار</h2>
+                <div class="flex flex-col gap-5 w-full lg:w-1/2" v-if="settings">
+                    <h2 class="text-lg font-bold">{{ settings?.site_name }}</h2>
                     <p class="text-gray-500">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
-                        مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
+                        {{ settings?.site_description }}
                     </p>
-                    <div class="flex flex-col gap-2" v-if="data">
-                        <UButton v-for="info in data['phones']" :label="info?.number"
-                            icon="fluent:call-16-regular" variant="ghost" class="justify-center" />
-                        <UButton v-for="info in data['emails']" :label="info?.email"
-                            icon="fluent:call-16-regular" variant="ghost" class="justify-center" />
+                    <div class="flex flex-col gap-2" v-if="settings?.phones?.length > 0">
+                        <UButton v-for="phone in settings?.phones" :label="phone?.number" icon="fluent:call-16-regular"
+                            variant="ghost" class="justify-center" />
                     </div>
                 </div>
                 <div class="flex flex-col gap-5 w-full lg:w-1/2">
@@ -42,6 +29,12 @@
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia'
+import { useSettingsStore } from '~/stores/settings'
+
+const settingsStore = useSettingsStore()
+await settingsStore.getSettings()
+const { settings } = storeToRefs(settingsStore)
 
 const links = [{
     label: 'خانه',

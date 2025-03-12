@@ -11,8 +11,13 @@ export default defineNuxtConfig({
           href: "https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css",
           rel: "stylesheet",
           type: "text/css",
+        },
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon.png'
         }
-      ]
+      ],
     }
   },
 

@@ -27,9 +27,11 @@
                             شده
                         </UBadge>
                         <UBadge v-else-if="order?.pay_status === 'not_paid'" color="orange" class="justify-center">
-                            نامشخص
+                            پرداخت نشده
                         </UBadge>
-                        <UBadge v-else color="red" class="justify-center">لغو شده</UBadge>
+                        <UBadge v-else-if="order?.pay_status === 'cancled'" color="red" class="justify-center">لغو شده
+                        </UBadge>
+                        <UBadge v-else color="red" class="justify-center">نامشخص</UBadge>
                     </div>
                     <div class="flex flex-col lg:flex-row gap-2">
                         <span>وضعیت سفارش: </span>
@@ -38,10 +40,10 @@
                         <UBadge v-else-if="order?.status === 'pending'" color="orange" class="justify-center">
                             درحال
                             انجام</UBadge>
-                        <UBadge v-else-if="order?.status === 'none'" color="rose" class="justify-center">
-                            نامشخص
+                        <UBadge v-else-if="order?.status === 'cancled'" color="rose" class="justify-center">
+                            لغو شده
                         </UBadge>
-                        <UBadge v-else color="red" class="justify-center">لغو شده</UBadge>
+                        <UBadge v-else color="red" class="justify-center">نامشخص</UBadge>
                     </div>
                 </div>
 
