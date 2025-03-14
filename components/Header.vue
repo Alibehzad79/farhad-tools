@@ -40,8 +40,8 @@
             <template #panel>
               <div class="p-4 flex flex-col gap-3">
                 <div class="grid grid-cols-4 gap-2">
-                  <UButton variant="solid" icon="fluent:checkbox-indeterminate" :color="color"
-                    v-for="color in appConfig.ui.colors" class="justify-center" @click="changeUiColor(color)" />
+                  <UButton variant="solid" :color="color" v-for="color in appConfig.ui.colors" class="justify-center"
+                    @click="changeUiColor(color)" />
                 </div>
               </div>
             </template>
@@ -138,6 +138,7 @@ import { useAuthStore } from '~/stores/auth'
 import { useCartStore } from '~/stores/carts'
 import { useSettingsStore } from '~/stores/settings'
 import { storeToRefs } from 'pinia'
+import { useStorage } from '@vueuse/core'
 const authStore = useAuthStore()
 const cartStore = useCartStore()
 
@@ -153,8 +154,11 @@ const { settings } = storeToRefs(settingsStore)
 
 
 const appConfig = useAppConfig();
+const uiPrimary = useStorage('nuxt-ui-primary');
 const changeUiColor = (color: string) => {
   appConfig.ui.primary = color
+  uiPrimary.value = color
+
 }
 
 const isOpenSearchModal = ref(false)

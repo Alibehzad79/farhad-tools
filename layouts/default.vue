@@ -5,12 +5,14 @@
     </div>
 
     <div class="flex flex-col gap-3" :class="{ 'hidden': load }">
-      <div v-if="!online" class="flex justify-center items-center gap-2 bg-red-500">
+      <div v-if="!online" class="flex justify-center items-center gap-2 bg-red-500 fixed bottom-0 w-full z-50">
         <Icon name="fluent:wifi-off-20-regular" class="bg-white" size="18" />
         <span class="text-white">شما آنلاین نیستید</span>
       </div>
       <Header />
-      <slot />
+      <div>
+        <slot />
+      </div>
       <Footer />
     </div>
 

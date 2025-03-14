@@ -1,6 +1,9 @@
+import { useStorage } from '@vueuse/core'
+const uiPrimary = useStorage('nuxt-ui-primary', 'indigo');
+
 export default defineAppConfig({
     ui: {
-        primary: 'indigo',
+        primary: uiPrimary.value?.toString() ?? 'indigo',
         gray: 'cool',
         horizontalNavigation: {
             label: 'text-md'
