@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLoadingIndicator color="#6366f1" class="shadow-lg shadow-indigo-500/50" />
+    <NuxtLoadingIndicator :color="uiPrimary ?? 'indigo'" class="shadow-lg shadow-indigo-500/50" />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
@@ -9,4 +9,8 @@
 </template>
 
 <script setup lang="ts">
+import { useStorage } from '@vueuse/core'
+const uiPrimary = useStorage('nuxt-ui-primary', 'indigo');
+
+
 </script>
