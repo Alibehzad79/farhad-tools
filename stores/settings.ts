@@ -16,6 +16,16 @@ export const useSettingsStore = defineStore('settings', {
             } else {
                 this.settings = null
             }
+        },
+        async getAbout() {
+            const { data, status } = await useFetch<null>('/api/settings/about', {
+                method: "get"
+            })
+            if (data.value && status.value === "success") {
+                this.about = data.value
+            } else {
+                this.about = null
+            }
         }
     }
 })
