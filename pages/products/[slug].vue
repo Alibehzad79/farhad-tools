@@ -164,7 +164,7 @@
                     <UAlert :title="`محصول [ ${route.params.slug.replaceAll(' ', '-')} ] یافت نشد.`"
                         description="404 Not Found" color="primary" variant="outline"
                         icon="fluent:error-circle-16-regular" ,
-                        :actions="[{ label: 'بارگزاری مجدد', variant: 'solid', click: () => getRefreshProduct(), loading: refreshLoading }]" />
+                        :actions="[{ label: 'بارگذاری مجدد', variant: 'solid', click: () => getRefreshProduct(), loading: refreshLoading }]" />
                 </div>
             </UContainer>
         </div>

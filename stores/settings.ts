@@ -4,7 +4,6 @@ export const useSettingsStore = defineStore('settings', {
     state: () => ({
         settings: null,
         about: null,
-        contact: null,
     }),
     actions: {
         async getSettings() {
@@ -26,6 +25,13 @@ export const useSettingsStore = defineStore('settings', {
             } else {
                 this.about = null
             }
-        }
+        },
+        async addContact(body: object) {
+            const { status } = await useFetch('/api/settings/contact', {
+                method: "post",
+                body: JSON.stringify(body)
+            })
+            return status.value
+        },
     }
 })

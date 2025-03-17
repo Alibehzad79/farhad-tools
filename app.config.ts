@@ -12,7 +12,7 @@ export default defineAppConfig({
             label: 'text-md'
         },
         button: {
-            rounded: 'rounded-xl',
+            rounded: 'rounded-lg',
             default: {
                 size: "md",
                 loadingIcon: 'svg-spinners:90-ring-with-bg'

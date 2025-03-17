@@ -15,8 +15,8 @@
                         {{ settings?.site_description }}
                     </p>
                     <div class="flex flex-col gap-2" v-if="settings?.phones?.length > 0">
-                        <UButton v-for="phone in settings?.phones" :label="phone?.number" icon="fluent:call-16-regular"
-                            variant="ghost" class="justify-center" />
+                        <UButton v-for="phone in settings?.phones" :label="phone?.number"
+                            trailing-icon="fluent:call-16-regular" variant="ghost" class="justify-center" />
                     </div>
                 </div>
                 <div class="flex flex-col gap-5 w-full lg:w-1/2">
