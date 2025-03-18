@@ -1,7 +1,8 @@
 <template>
   <div class="sticky top-0 bg-white dark:bg-[#1c1b22] py-2 z-50 no-print">
     <UContainer>
-      <UAlert title="اعلان ها" class="text-center" color="red" variant="soft" />
+      <UAlert v-if="notification && notification?.active === true" :title="notification?.alert" class="text-center"
+        color="red" variant="soft" />
       <div class="mt-5 hidden lg:flex flex-row items-center justify-between">
         <div>
           <h1 class="text-3xl">{{ settings?.site_name }}</h1>
@@ -139,6 +140,9 @@ import { useCartStore } from '~/stores/carts'
 import { useSettingsStore } from '~/stores/settings'
 import { storeToRefs } from 'pinia'
 import { useStorage } from '@vueuse/core'
+
+const route = useRoute()
+
 const authStore = useAuthStore()
 const cartStore = useCartStore()
 
@@ -150,11 +154,12 @@ const { isAuthenticated, user } = storeToRefs(authStore)
 
 const settingsStore = useSettingsStore()
 await settingsStore.getSettings()
-const { settings } = storeToRefs(settingsStore)
+await settingsStore.getNotification()
+const { settings, notification } = storeToRefs(settingsStore)
 
 
 const appConfig = useAppConfig();
-const uiPrimary = useStorage('nuxt-ui-primary');
+const uiPrimary = useStorage('nuxt-ui-primary', 'indigo');
 const changeUiColor = (color: string) => {
   appConfig.ui.primary = color
   uiPrimary.value = color
@@ -240,6 +245,13 @@ const getSearch = async () => {
   navigateTo({ name: 'search', query: { 'query': searchValue.value } })
   finish()
 }
+
+
+watch(route, async (newValue, oldValue) => {
+  if (newValue) {
+    await settingsStore.getNotification()
+  }
+})
 
 </script>
 

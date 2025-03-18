@@ -4,6 +4,7 @@ export const useSettingsStore = defineStore('settings', {
     state: () => ({
         settings: null,
         about: null,
+        notification: null
     }),
     actions: {
         async getSettings() {
@@ -32,6 +33,16 @@ export const useSettingsStore = defineStore('settings', {
                 body: JSON.stringify(body)
             })
             return status.value
+        },
+        async getNotification() {
+            const { data, status } = await useFetch<null>('/api/settings/notification', {
+                method: "get"
+            })
+            if (data.value && status.value === "success") {
+                this.notification = data.value
+            } else {
+                this.notification = null
+            }
         },
     }
 })
