@@ -77,8 +77,8 @@
                     </div>
                     <div class="w-full lg:w-3/4" v-if="products.length < 1">
                         <UAlert title="محصولی یافت نشد." color="red" variant="soft"
-                            icon="fluent:error-circle-16-regular" description="404 Not Found"
-                            :actions="[{ label: 'بارگذاری مجدد', variant: 'solid', color: 'rose', click: () => getRefreshAllProduct(), loading: refreshLoading }]" />
+                            icon="fluent:error-circle-16-regular" description="Not Found 404"
+                            :actions="[{ icon: 'fluent:arrow-clockwise-16-regular', variant: 'solid', color: 'rose', click: () => getRefreshAllProduct(), loading: refreshLoading }]" />
                     </div>
                 </div>
             </div>

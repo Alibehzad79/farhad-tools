@@ -162,8 +162,8 @@
                 </div>
                 <div v-else>
                     <UAlert :title="`محصول [ ${route.params.slug.replaceAll(' ', '-')} ] یافت نشد.`"
-                        description="404 Not Found" color="red" variant="soft" icon="fluent:error-circle-16-regular" ,
-                        :actions="[{ label: 'بارگذاری مجدد', variant: 'solid', color: 'red', click: () => getRefreshProduct(), loading: refreshLoading }]" />
+                        description="Not Found 404" color="red" variant="soft" icon="fluent:error-circle-16-regular" ,
+                        :actions="[{ icon: 'fluent:arrow-clockwise-16-regular', variant: 'solid', color: 'red', click: () => getRefreshProduct(), loading: refreshLoading }]" />
                 </div>
             </UContainer>
         </div>
