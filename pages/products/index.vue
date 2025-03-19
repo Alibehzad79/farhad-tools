@@ -13,8 +13,8 @@
                         <div class="flex flex-col gap-3">
                             <span class="text-lg">دسته بندی ها</span>
                             <div class="flex flex-col gap-5">
-                                <UButton label="همه محصولات" @click="getDoSearch(String(''))" class="w-full justify-center"
-                                    icon="fluent:pin-16-regular" />
+                                <UButton label="همه محصولات" @click="getDoSearch(String(''))"
+                                    class="w-full justify-center" icon="fluent:pin-16-regular" />
                                 <UButton @click="getDoSearch(String(category?.slug))"
                                     v-for="category in categories_tags['categories']" :key="category?.id"
                                     :label="category?.name" class="w-full" icon="fluent:pin-16-regular" />
@@ -77,7 +77,7 @@
                     </div>
                     <div class="w-full lg:w-3/4" v-if="products.length < 1">
                         <UAlert title="محصولی یافت نشد." color="red" variant="soft"
-                            icon="fluent:error-circle-16-regular"
+                            icon="fluent:error-circle-16-regular" description="404 Not Found"
                             :actions="[{ label: 'بارگذاری مجدد', variant: 'solid', color: 'rose', click: () => getRefreshAllProduct(), loading: refreshLoading }]" />
                     </div>
                 </div>
