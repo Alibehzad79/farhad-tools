@@ -84,7 +84,7 @@
                                             toCurrencyString(product?.discount_price) + ' تومان' }}</span>
                                     </UChip>
                                     <span class="text-gray-500 text-sm line-through">{{ toCurrencyString(product?.price)
-                                    }}
+                                        }}
                                         تومان</span>
                                 </div>
                                 <span v-if="product?.discount <= 0" class="justify-center text-lg">{{
@@ -162,9 +162,8 @@
                 </div>
                 <div v-else>
                     <UAlert :title="`محصول [ ${route.params.slug.replaceAll(' ', '-')} ] یافت نشد.`"
-                        description="404 Not Found" color="primary" variant="outline"
-                        icon="fluent:error-circle-16-regular" ,
-                        :actions="[{ label: 'بارگذاری مجدد', variant: 'solid', click: () => getRefreshProduct(), loading: refreshLoading }]" />
+                        description="404 Not Found" color="red" variant="soft" icon="fluent:error-circle-16-regular" ,
+                        :actions="[{ label: 'بارگذاری مجدد', variant: 'solid', color: 'red', click: () => getRefreshProduct(), loading: refreshLoading }]" />
                 </div>
             </UContainer>
         </div>

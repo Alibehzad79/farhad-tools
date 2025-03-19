@@ -68,8 +68,8 @@
             <template #panel>
               <div class="p-4 flex flex-col gap-3">
                 <div class="grid grid-cols-4 gap-2">
-                  <UButton variant="solid" icon="fluent:checkbox-indeterminate" :color="color"
-                    v-for="color in appConfig.ui.colors" class="justify-center p-3" @click="changeUiColor(color)" />
+                  <UButton variant="solid" :color="color"
+                    v-for="color in appConfig.ui.colors" class="justify-center" @click="changeUiColor(color)" />
                 </div>
               </div>
             </template>
